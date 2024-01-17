@@ -3,7 +3,7 @@ NAME = philo
 
 CC = cc -g -Wall -Wextra -Werror
 
-SRC = main.c initialize.c
+SRC = checks.c  free.c  ft_atoi.c  initialize.c  main.c threads.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

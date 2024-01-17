@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/17 15:19:04 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:06:08 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	init_data(t_data *data, int ac, char **av)
 	if (ac == 6)
 		data->nb_eat = ft_atoi(av[5]);
 	else
-		data->nb_eat = -100;
+		data->nb_eat = -4666;
 }
