@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/16 18:16:50 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:35:01 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ typedef struct s_data
 
 int		ft_atoi(const char *str);
 void	init_data(t_data *data, int ac, char **av);
+void	input_check(t_data *data);
 
 #endif
