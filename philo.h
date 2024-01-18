@@ -24,6 +24,7 @@ typedef enum e_action
 	EAT,
 	SLEEP,
 	THINK,
+	FORK,
 	DIED
 }	t_action;
 

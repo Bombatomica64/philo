@@ -34,5 +34,7 @@ void	print_action(t_data *data, t_action action, int id, int time_since)
 		printf("%d philo[%d] is thinking\n", time_since, id);
 	else if (action == DIED)
 		printf("%d philo[%d] died\n", time_since, id);
+	else if (action == FORk)
+		printf("%d pihlo[%d] has taken a fork\n", time_since, id);
 	pthread_mutex_unlock(data->print);
 }
