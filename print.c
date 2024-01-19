@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/17 17:57:06 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:58:57 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_action(t_data *data, t_action action, int id, int time_since)
 		printf("%d philo[%d] is thinking\n", time_since, id);
 	else if (action == DIED)
 		printf("%d philo[%d] died\n", time_since, id);
-	else if (action == FORk)
+	else if (action == FORK)
 		printf("%d pihlo[%d] has taken a fork\n", time_since, id);
 	pthread_mutex_unlock(data->print);
 }

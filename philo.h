@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/17 17:51:37 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:54:29 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef enum e_action
 	DIED
 }	t_action;
 
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
+
 typedef struct s_time
 {
 	struct timeval		start;
@@ -38,7 +44,8 @@ typedef struct s_philo
 {
 	int					id;
 	int					left_to_eat;
-	pthread_mutex_t		*forks;
+	int					n_fork;
+	pthread_mutex_t		*fork;
 	pthread_mutex_t		*dead;
 	t_time				life;
 }	t_philo;
@@ -52,6 +59,7 @@ typedef struct s_thread
 typedef struct s_data
 {
 	int					nb_philo;
+	t_bool				start;
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
@@ -61,10 +69,18 @@ typedef struct s_data
 	pthread_mutex_t		*print;
 }	t_data;
 
+typedef struct s_data_id
+{
+	t_data				*data;
+	int					id;
+}	t_data_id;
+
 int		ft_atoi(const char *str);
 void	init_data(t_data *data, int ac, char **av);
 void	input_check(t_data *data);
 void	make_threads(t_data *data);
 void	free_all(t_data *data);
+int		ft_get_time(struct timeval start);
+void	print_action(t_data *data, t_action action, int id, int time_since);
 
 #endif
