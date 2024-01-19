@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:44:33 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 16:01:31 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:27:33 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int ac, char **av)
 	{
 		data = malloc(sizeof(t_data));
 		init_data(data, ac, av);
-
 	//	input_check(&data);
 		make_threads(data);
 	}

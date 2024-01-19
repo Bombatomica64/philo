@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 17:14:08 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:54:17 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ typedef enum e_bool
 	ERROR
 }	t_bool;
 
+typedef enum e_error
+{
+	MALLOC,
+	MUTEX,
+	FORK_M,
+	THREAD,
+	LOW_ARGS,
+	TOO_MANY_ARGS,
+	NOT_INT,
+	NOT_POSITIVE,
+}	t_error;
+
 typedef struct s_time
 {
 	struct timeval		start;
@@ -60,6 +72,7 @@ typedef struct s_thread
 typedef struct s_data
 {
 	int					nb_philo;
+	int					nb_fork;
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
@@ -77,15 +90,15 @@ typedef struct s_data_id
 }	t_data_id;
 
 int		ft_atoi(const char *str);
-int 	ft_get_time(struct timeval start);
+int		ft_get_time(struct timeval start);
 int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
 int		giveup_fork(pthread_mutex_t *fork);
 void	init_data(t_data *data, int ac, char **av);
 void	input_check(t_data *data);
 void	make_threads(t_data *data);
-void 	fork_acquiring(t_data *data, t_data_id *all);
-void 	fork_releasing(t_data *data, t_data_id *all);
-void 	free_all(t_data *data);
-void 	print_action(t_data *data, t_action action, int id, int time_since);
+void	fork_acquiring(t_data *data, t_data_id *all);
+void	fork_releasing(t_data *data, t_data_id *all);
+void	free_all(t_data *data);
+void	print_action(t_data *data, t_action action, int id, int time_since);
 
 #endif

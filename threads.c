@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 17:14:06 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:34:43 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-
-int get_food(t_data *data, int id)
+int	get_food(t_data *data, int id)
 {
 	print_action(data, EAT, id, ft_get_time(data->time.start));
 	data->thrds[id].philo->life_left = data->time_to_die;
@@ -25,7 +24,7 @@ int get_food(t_data *data, int id)
 
 void	*routine(void *d)
 {
-	t_data		*data; 
+	t_data		*data;
 	t_data_id	*all;
 
 	all = (t_data_id *)d;
@@ -36,9 +35,8 @@ void	*routine(void *d)
 		usleep(100);
 	}
 	data->thrds[all->id].philo->start = FALSE;
-	while(data->go_on == TRUE)
+	while (data->go_on == TRUE)
 	{
-		//data->thrds[all->id].philo->n_fork = 0;
 		fork_acquiring(data, all);
 		printf("id[%d]n_fork = %d\n",all->id ,data->thrds[all->id].philo->n_fork);
 		if (data->thrds[all->id].philo->n_fork == 2)
@@ -80,7 +78,8 @@ void	make_threads(t_data *data)
 		data->thrds[i].philo->n_fork = 0;
 		data->thrds[i].philo->start = TRUE;
 		pthread_mutex_init(data->thrds[i].philo->fork, NULL);
-		pthread_create(data->thrds[i].thread, NULL, &routine, get_data_id(data, i));
+		pthread_create(data->thrds[i].thread, NULL,
+			&routine, get_data_id(data, i));
 		i++;
 	}
 	i = 0;
