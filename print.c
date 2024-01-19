@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 11:58:57 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:26:38 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	print_action(t_data *data, t_action action, int id, int time_since)
 	else if (action == DIED)
 		printf("%d philo[%d] died\n", time_since, id);
 	else if (action == FORK)
-		printf("%d pihlo[%d] has taken a fork\n", time_since, id);
+		printf("%d philo[%d] has taken a fork\n", time_since, id);
 	pthread_mutex_unlock(data->print);
 }

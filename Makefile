@@ -1,15 +1,16 @@
 
 NAME = philo
 
-CC = cc -g -Wall -Wextra -Werror
+CC = cc -g -Wall -Wextra -Werror 
 
-SRC = checks.c  free.c  ft_atoi.c  initialize.c  main.c threads.c
+SRC = checks.c  free.c  ft_atoi.c  initialize.c \
+ 		main.c  print.c  threads.c fork.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME)
+	@$(CC) $(OBJ) -o $(NAME) -lpthread
 	@echo "Compiled "$(NAME)" successfully!"
 
 %.o: %.c
@@ -26,14 +27,25 @@ fclean: clean
 	@echo "Cleaned "$(NAME)" successfully!"
 	
 re: fclean all
-	make re -C $(FT_PRINTF)
-
 
 replay:
 	@rm -f $(NAME)
-	@$(CC) $(SRC) $(LIBRARY) -o $(NAME)
+	@$(CC) $(SRC) -o $(NAME)
 	@echo "Let's  gooo!!"
 
 bonus : all
+
+val: all
+	@read -p "Enter number of philo: " cmd; \
+	read -p "Enter time to die: " cmd2; \
+	read -p "Enter time to eat: " cmd3; \
+	read -p "Enter time to sleep: " cmd4; \
+	read -p "Enter number of times each philo must eat: " cmd5; \
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
+	./$(NAME) $$cmd $$cmd2 $$cmd3 $$cmd4 $$cmd5
+
+vall: all
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
+	./$(NAME) 4 600 200 200 2
 
 .PHONY: all clean fclean bonus re replay
