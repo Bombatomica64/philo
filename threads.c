@@ -73,7 +73,6 @@ void	*routine(void *d)
 	{
 		//data->thrds[all->id].philo->n_fork = 0;
 		fork_acquiring(data, all);
-		printf("id[%d]n_fork = %d\n",all->id ,data->thrds[all->id].philo->n_fork);
 		if (data->thrds[all->id].philo->n_fork == 2)
 			get_food(data, all->id);
 		think_and_die(data, all);

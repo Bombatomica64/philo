@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 17:23:49 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 17:49:37 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:41:15 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,4 @@ void	ft_error(t_data *data, t_error error_type)
 	free_all(data);
 	exit(EXIT_FAILURE);
 }
+//TODO: check if it's ok

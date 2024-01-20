@@ -25,6 +25,10 @@ int	main(int ac, char **av)
 
 	//	input_check(&data);
 		make_threads(data);
+		while (data->go_on == TRUE)
+		{
+			
+		}
 	}
 	else
 		write(2, "\033[36mError : too many arguments\n", 31);
