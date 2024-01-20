@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 17:54:17 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/20 10:45:36 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	make_threads(t_data *data);
 void	fork_acquiring(t_data *data, t_data_id *all);
 void	fork_releasing(t_data *data, t_data_id *all);
 void	free_all(t_data *data);
+void	free_philo(t_data *data, int i);
+void	mutex_destroy(t_data *data, int i);
 void	print_action(t_data *data, t_action action, int id, int time_since);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 17:34:43 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/20 10:33:58 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ void	*routine(void *d)
 	while (data->go_on == TRUE)
 	{
 		fork_acquiring(data, all);
-		printf("id[%d]n_fork = %d\n",all->id ,data->thrds[all->id].philo->n_fork);
 		if (data->thrds[all->id].philo->n_fork == 2)
 			get_food(data, all->id);
 		//think_and_die(data, all);
 		fork_releasing(data, all);
-		printf("n_fork = %d\n", data->thrds[all->id].philo->n_fork);
 		if (data->thrds->philo->left_to_eat == 0)
 			data->go_on = FALSE;
 	}
