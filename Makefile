@@ -4,7 +4,7 @@ NAME = philo
 CC = cc -g -Wall -Wextra -Werror 
 
 SRC = checks.c  free.c  ft_atoi.c  initialize.c \
- 		main.c  print.c  threads.c fork.c error.c 
+ 		main.c  print.c  threads.c fork.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -46,6 +46,6 @@ val: all
 
 vall: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
-	./$(NAME) 4 600 200 200 2
+	./$(NAME) 2 600 200 200 1
 
 .PHONY: all clean fclean bonus re replay
