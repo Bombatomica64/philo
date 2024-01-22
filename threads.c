@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 18:41:21 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:03:17 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-
-int get_food(t_data *data, int id)
+int	get_food(t_data *data, int id)
 {
 	print_action(data, EAT, id, ft_get_time(data->time.start));
-	data->thrds[id].philo->life_left = data->time_to_die;
+	gettimeofday(&data->thrds[id].philo->life_left.start, NULL);
 	usleep(data->time_to_eat);
 	data->thrds[id].philo->left_to_eat--;
+	
 	return (1);
 }
 
-void think_and_die(t_data *data, t_data_id *all)
+void	think_and_die(t_data *data, t_data_id *all)
 {
 	/*int		i;
 
@@ -42,42 +42,42 @@ void think_and_die(t_data *data, t_data_id *all)
 	}*/
 	while (data->go_on == TRUE)
 	{
-		if (data->thrds[all->id].philo->life_left <= 0)
+		if (data->thrds[all->id].philo->life_left.time_since <= 0)
 		{
 			print_action(data, DIED, all->id, ft_get_time(data->time.start));
 			data->go_on = FALSE;
 			return ;
 		}
 		else
-			
-		print_action(data, THINK, all->id, ft_get_time(data->time.start));
+		{
+			printf("ciao id[%d]\n", all->id);
+		}
+		print_action(data, THINK, all->id,
+			ft_get_time(data->time.start));
 		usleep(data->time_to_sleep);
-		data->thrds[all->id].philo->life_left -= data->time_to_sleep;
+		data->thrds[all->id].philo->life_left.time_since -= data->time_to_sleep;
 	}
 }
 
 void	*routine(void *d)
 {
-	t_data		*data; 
-	t_data_id	*all;[2]n_fork = 0
+	t_data		*data;
+	t_data_id	*all;
 
 	all = (t_data_id *)d;
 	data = all->data;
 	if (data->thrds[all->id].philo->start == TRUE && all->id % 2 != 0)
 	{
-		printf("ciaoneeeeid[%d]\n", all->id);
 		usleep(100);
 	}
 	data->thrds[all->id].philo->start = FALSE;
-	while(data->go_on == TRUE)
+	while (data->go_on == TRUE)
 	{
-		//data->thrds[all->id].philo->n_fork = 0;
 		fork_acquiring(data, all);
 		if (data->thrds[all->id].philo->n_fork == 2)
 			get_food(data, all->id);
-		think_and_die(data, all);
+		//think_and_die(data, all);
 		fork_releasing(data, all);
-		printf("[%d]n_fork = %d\n",all->id ,data->thrds[all->id].philo->n_fork);
 		if (data->thrds->philo->left_to_eat == 0)
 			data->go_on = FALSE;
 	}
@@ -110,19 +110,21 @@ void	make_threads(t_data *data)
 		data->thrds[i].thread = malloc(sizeof(pthread_t));
 		data->thrds[i].philo->id = i;
 		data->thrds[i].philo->left_to_eat = data->nb_eat;
-		data->thrds[i].philo->life_left = data->time_to_die;
+		gettimeofday(&data->thrds[i].philo->life_left.start, NULL);
 		data->thrds[i].philo->n_fork = 0;
 		data->thrds[i].philo->start = TRUE;
 		pthread_mutex_init(&data->thrds[i].philo->fork, NULL);
-		pthread_create(data->thrds[i].thread, NULL, &routine, get_data_id(data, i));
+		pthread_create(data->thrds[i].thread, NULL,
+			&routine, get_data_id(data, i));
 		i++;
 	}
+	data->thread_alive = malloc(sizeof(pthread_t));
+	pthread_create(data->thread_alive, NULL, &check_life, data);
 	i = 0;
 	while (i < data->nb_philo)
 	{
 		pthread_join(*data->thrds[i].thread, NULL);
 		i++;
 	}
-	/*while(TRUE)
-		end(data);*/
+	pthread_join(*data->thread_alive, NULL);
 }

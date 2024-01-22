@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/19 16:26:38 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/22 13:02:28 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_get_time(struct timeval start)
+long	ft_get_time(struct timeval start)
 {
 	struct timeval	now;
-	int				time_since;
+	long			time_since;
 
 	gettimeofday(&now, NULL);
 	time_since = (now.tv_sec - start.tv_sec) * 1000;
 	time_since += (now.tv_usec - start.tv_usec) / 1000;
+	printf("time_since[%ld]\n", time_since);
 	return (time_since);
 }
 

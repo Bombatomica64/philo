@@ -4,7 +4,8 @@ NAME = philo
 CC = cc -g -Wall -Wextra -Werror 
 
 SRC = checks.c  free.c  ft_atoi.c  initialize.c \
- 		main.c  print.c  threads.c fork.c
+ 		main.c  print.c  threads.c fork.c death.c 
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
