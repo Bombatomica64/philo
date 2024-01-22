@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/22 12:58:44 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:07:38 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fork_acquiring(t_data *data, t_data_id *all)
 int	get_fork(t_data *data, pthread_mutex_t *fork, int id)
 {
 	pthread_mutex_lock(fork);
-	print_action(data, FORK, id, ft_get_time(data->time.start));
+	print_action(data, FORK, id, ft_get_time(&data->time.start));
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 12:51:57 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:53:19 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ void	*check_life(void *da)
 		while (i < data->nb_philo)
 		{
 			data->thrds[i].philo->life_left.time_since = ft_get_time(
-					data->thrds[i].philo->life_left.start);
-			if (data->thrds[i].philo->life_left.time_since <= 0)
+					&data->thrds[i].philo->life_left);
+			if (data->thrds[i].philo->life_left.time_since > data->time_to_die)
 			{
-				print_action(data, DIED, i, ft_get_time(data->time.start));
+			printf("time_since[%ld]\n", data->thrds[i].philo->life_left.time_since);
+				print_action(data, DIED, i, ft_get_time(&data->time));
 				data->go_on = FALSE;
 				ft_close(data);
 			}

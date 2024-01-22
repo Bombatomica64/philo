@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 12:56:18 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:58:21 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_bool
 typedef struct s_time
 {
 	struct timeval		start;
+	long				start_ms;
 	long				time_since;
 }	t_time;
 
@@ -92,18 +93,20 @@ typedef struct s_data_id
 }	t_data_id;
 
 int		ft_atoi(const char *str);
-long	ft_get_time(struct timeval start);
+long	ft_get_time(t_time *st);
 int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
 int		giveup_fork(pthread_mutex_t *fork);
 void	init_data(t_data *data, int ac, char **av);
-void	input_check(t_data *data);
+void	input_check(char **av, int ac, t_data *data);
 void	make_threads(t_data *data);
 void	fork_acquiring(t_data *data, t_data_id *all);
 void	fork_releasing(t_data *data, t_data_id *all);
 void	free_all(t_data *data);
 void	free_philo(t_data *data, int i);
 void	mutex_destroy(t_data *data, int i);
-void	print_action(t_data *data, t_action action, int id, int time_since);
+void	print_action(t_data *data, t_action action, int id, long time_since);
 void	*check_life(void *da);
+void	ft_msleep(int time);
+void	get_start(t_time *start);
 
 #endif
