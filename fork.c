@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/22 17:07:38 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:20:33 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,38 @@
 void	fork_releasing(t_data *data, t_data_id *all)
 {
 	data->thrds[all->id].philo->n_fork
-		+= giveup_fork(&data->thrds[all->id].philo->fork);
+		+= giveup_fork(data->thrds[all->id].philo->fork, data, all->id);
 	if (all->id == data->nb_philo - 1)
 		data->thrds[all->id].philo->n_fork
-			+= giveup_fork(&data->thrds[0].philo->fork);
+			+= giveup_fork(data->thrds[0].philo->fork, data, all->id);
 	else
 		data->thrds[all->id].philo->n_fork
-			+= giveup_fork(&data->thrds[all->id + 1].philo->fork);
+			+= giveup_fork(data->thrds[all->id + 1].philo->fork, data, all->id);
 }
 
 void	fork_acquiring(t_data *data, t_data_id *all)
 {
 	data->thrds[all->id].philo->n_fork
-		+= get_fork(data, &data->thrds[all->id].philo->fork, all->id);
+		+= get_fork(data, data->thrds[all->id].philo->fork, all->id);
 	if (all->id == data->nb_philo - 1)
 		data->thrds[all->id].philo->n_fork
-			+= get_fork(data, &data->thrds[0].philo->fork, all->id);
+			+= get_fork(data, data->thrds[0].philo->fork, all->id);
 	else
 		data->thrds[all->id].philo->n_fork
-			+= get_fork(data, &data->thrds[all->id + 1].philo->fork, all->id);
+			+= get_fork(data,
+				data->thrds[all->id + 1].philo->fork, all->id);
 }
 
 int	get_fork(t_data *data, pthread_mutex_t *fork, int id)
 {
 	pthread_mutex_lock(fork);
-	print_action(data, FORK, id, ft_get_time(&data->time.start));
+	print_action(data, FORK, id, ft_get_time(&data->time));
 	return (1);
 }
 
-int	giveup_fork(pthread_mutex_t *fork)
+int	giveup_fork(pthread_mutex_t *fork, t_data *data, int id)
 {
 	pthread_mutex_unlock(fork);
+	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
 	return (-1);
 }

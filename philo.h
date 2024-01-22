@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 17:58:21 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:25:42 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum e_action
 	SLEEP,
 	THINK,
 	FORK,
+	FORK_LEFT,
 	DIED
 }	t_action;
 
@@ -62,7 +63,8 @@ typedef struct s_philo
 	t_time				life_left;
 	t_bool				start;
 	t_bool				alive;
-	pthread_mutex_t		fork;
+	t_bool				go_on;
+	pthread_mutex_t		*fork;
 }	t_philo;
 
 typedef struct s_thread
@@ -92,10 +94,10 @@ typedef struct s_data_id
 	int					id;
 }	t_data_id;
 
-int		ft_atoi(const char *str);
 long	ft_get_time(t_time *st);
+int		ft_atoi(const char *str);
 int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
-int		giveup_fork(pthread_mutex_t *fork);
+int		giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
 void	init_data(t_data *data, int ac, char **av);
 void	input_check(char **av, int ac, t_data *data);
 void	make_threads(t_data *data);

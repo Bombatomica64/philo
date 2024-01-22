@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 18:04:44 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:28:27 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ void	*routine(void *d)
 	if (data->thrds[all->id].philo->start == TRUE && all->id % 2 != 0)
 	{
 		ft_msleep(100);
-		printf("ciao id[%d]\n", all->id);
 	}
 	data->thrds[all->id].philo->start = FALSE;
-	while (data->go_on == TRUE)
+	while (data->thrds[all->id]->philo->go_on == TRUE)
 	{
 		fork_acquiring(data, all);
 		if (data->thrds[all->id].philo->n_fork == 2)
@@ -107,14 +106,15 @@ void	make_threads(t_data *data)
 	while (i < data->nb_philo)
 	{
 		data->thrds[i].philo = malloc(sizeof(t_philo));
-		// data->thrds[i].philo->fork = malloc(sizeof(pthread_mutex_t));
+		data->thrds[i].philo->fork = malloc(sizeof(pthread_mutex_t));
 		data->thrds[i].thread = malloc(sizeof(pthread_t));
 		data->thrds[i].philo->id = i;
 		data->thrds[i].philo->left_to_eat = data->nb_eat;
 		get_start(&data->thrds[i].philo->life_left);
 		data->thrds[i].philo->n_fork = 0;
 		data->thrds[i].philo->start = TRUE;
-		pthread_mutex_init(&data->thrds[i].philo->fork, NULL);
+		data->thrds[i].philo->go_on = TRUE;
+		pthread_mutex_init(data->thrds[i].philo->fork, NULL);
 		pthread_create(data->thrds[i].thread, NULL,
 			&routine, get_data_id(data, i));
 		i++;

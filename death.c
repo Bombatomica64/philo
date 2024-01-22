@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 17:53:19 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:13:21 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_close(t_data *data)
 	exit(0);
 	while (i < data->nb_fork)
 	{
-		pthread_mutex_destroy(&data->thrds[i].philo->fork);
+		pthread_mutex_destroy(data->thrds[i].philo->fork);
 		free(data->thrds[i].philo);
 		free(data->thrds[i].thread);
 		i++;

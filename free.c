@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:22:58 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 12:39:50 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:12:09 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	free_philo(t_data *data, int i)
 
 void	mutex_destroy(t_data *data, int i)
 {
-	pthread_mutex_destroy(&data->thrds[i].philo->fork);
+	pthread_mutex_destroy(data->thrds[i].philo->fork);
 }

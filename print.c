@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 17:58:48 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:25:23 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	print_action(t_data *data, t_action action, int id, long time_since)
 		printf("%ld philo[%d] died\n", time_since, id);
 	else if (action == FORK)
 		printf("%ld philo[%d] has taken a fork\n", time_since, id);
+	else if (action == FORK_LEFT)
+		printf("%ld philo[%d] has left a fork\n", time_since, id);
 	pthread_mutex_unlock(data->print);
 }
