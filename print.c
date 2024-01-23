@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 18:25:23 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:13:31 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_msleep(int time)
 
 	tmp = ft_current_time() + time;
 	while (ft_current_time() < tmp)
-		usleep(100);
+		usleep(10);
 }
 
 void	get_start(t_time *start)

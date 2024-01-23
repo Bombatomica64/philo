@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 18:28:27 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:18:14 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	get_food(t_data *data, int id)
 	return (1);
 }
 
-void	think_and_die(t_data *data, t_data_id *all)
+/*void	think_and_die(t_data *data, t_data_id *all)
 {
-	/*int		i;
+	int		i;
 
 	i = 0;
 	while (i < data->nb_philo)
@@ -38,7 +38,7 @@ void	think_and_die(t_data *data, t_data_id *all)
 	{
 		data->go_on = FALSE;
 		return ;
-	}*/
+	}
 	while (data->go_on == TRUE)
 	{
 		if (data->thrds[all->id].philo->life_left.time_since <= 0)
@@ -56,30 +56,33 @@ void	think_and_die(t_data *data, t_data_id *all)
 		usleep(data->time_to_sleep);
 		data->thrds[all->id].philo->life_left.time_since -= data->time_to_sleep;
 	}
-}
+}*/
 
 void	*routine(void *d)
 {
 	t_data		*data;
 	t_data_id	*all;
+	int			id;
 
 	all = (t_data_id *)d;
+	id = all->id;
 	data = all->data;
+	free(all);
 	//printf("id[%d]\n", all->id % 2);
-	if (data->thrds[all->id].philo->start == TRUE && all->id % 2 != 0)
+	if (data->thrds[id].philo->start == TRUE && id % 2 != 0)
 	{
-		ft_msleep(100);
+		ft_msleep(100); ///////non cambia nulla se cambio il valore
 	}
-	data->thrds[all->id].philo->start = FALSE;
-	while (data->thrds[all->id]->philo->go_on == TRUE)
+	data->thrds[id].philo->start = FALSE;
+	while (data->thrds[id].philo->go_on == TRUE)
 	{
-		fork_acquiring(data, all);
-		if (data->thrds[all->id].philo->n_fork == 2)
-			get_food(data, all->id);
+		fork_acquiring(data, id);
+		if (data->thrds[id].philo->n_fork == 2)
+			get_food(data, id);
 		//think_and_die(data, all);
-		fork_releasing(data, all);
+		fork_releasing(data, id);
 		if (data->thrds->philo->left_to_eat == 0)
-			data->go_on = FALSE;
+			data->thrds[id].philo->go_on = FALSE;
 	}
 	data->nb_philo--;
 	//think_and_die(data, all);
@@ -120,12 +123,22 @@ void	make_threads(t_data *data)
 		i++;
 	}
 	data->thread_alive = malloc(sizeof(pthread_t));
+	printf("nb_fork[%d]\n", data->nb_fork);
 	pthread_create(data->thread_alive, NULL, &check_life, data);
-	i = 0;
-	while (i < data->nb_philo)
+	join_philo(data);
+	ft_close(data);
+}
+
+void	join_philo(t_data *data)
+{
+	int j;
+
+	j = 0;
+	while (j < data->nb_philo)
 	{
-		pthread_join(*data->thrds[i].thread, NULL);
-		i++;
+		if (j == 0)
+			pthread_join(*data->thread_alive, NULL);
+		pthread_join(*data->thrds[j].thread, NULL);
+		j++;
 	}
-	pthread_join(*data->thread_alive, NULL);
 }
