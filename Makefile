@@ -47,6 +47,6 @@ val: all
 
 vall: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
-	./$(NAME) 2 600 200 200 1
+	./$(NAME) 3 800 200 200 1
 
 .PHONY: all clean fclean bonus re replay

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/23 15:13:31 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:37:16 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ long	ft_get_time(t_time *start)
 
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
+	if (data->thrds[id].philo->go_on == FALSE)
+		return ;
 	pthread_mutex_lock(data->print);
 	if (action == EAT)
 		printf("%ld philo[%d] is eating\n", time_since, id);
