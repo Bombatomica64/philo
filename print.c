@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/23 16:37:16 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:36:17 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ long	ft_get_time(t_time *start)
 
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
+	printf("data->thrds[%d].philo->go_on[%d]\n", id, data->thrds[id].philo->go_on);
 	if (data->thrds[id].philo->go_on == FALSE)
 		return ;
 	pthread_mutex_lock(data->print);

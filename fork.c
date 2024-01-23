@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/23 16:24:12 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:32:24 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ void	fork_releasing(t_data *data, int id)
 	data->thrds[id].philo->n_fork
 		+= giveup_fork(data->thrds[id].philo->fork, data, id);
 	printf("\033[36mid[%d]\033[0m\n", id);
-	if (id == data->nb_philo - 1)
+	if (id == data->nb_fork - 1)
 		data->thrds[id].philo->n_fork
 			+= giveup_fork(data->thrds[0].philo->fork, data, id);
 	else
 	{
+		printf("\033[32mid[%d]\033[0m\n", id);
+		printf("\033[36mid[%d]\033[0m\n", id + 1);
+		printf("\033[32mnb_fork[%d]\033[0m\n", data->nb_fork);
 		data->thrds[id].philo->n_fork
 			+= giveup_fork(data->thrds[id + 1].philo->fork, data, id);
 	}
@@ -31,16 +34,15 @@ void	fork_acquiring(t_data *data, int id)
 {
 	data->thrds[id].philo->n_fork
 		+= get_fork(data, data->thrds[id].philo->fork, id);
-	if (id == data->nb_philo - 1)
+	if (id == data->nb_fork - 1)
 		data->thrds[id].philo->n_fork
 			+= get_fork(data, data->thrds[0].philo->fork, id);
 	else
 	{
 		printf("\033[32mid[%d]\033[0m\n", id);
-		printf("\033[36mid[%d]\033[0m\n", id + 1);
+		printf("\033[36;mid[%d]\033[0m\n", id + 1);
 		data->thrds[id].philo->n_fork
-			+= get_fork(
-				data, data->thrds[id + 1].philo->fork, id);
+			+= get_fork(data, data->thrds[id + 1].philo->fork, id);
 	}
 }
 

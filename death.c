@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/23 16:30:51 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:35:04 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_close(t_data *data)
 	i = 0;
 	while (i < data->nb_fork)
 	{
+		pthread_mutex_unlock(data->thrds[i].philo->fork);
 		pthread_mutex_destroy(data->thrds[i].philo->fork);
 		free(data->thrds[i].philo->fork);
 		free(data->thrds[i].philo);
@@ -31,6 +32,7 @@ void	ft_close(t_data *data)
 	free(data->thrds);
 	if (data->print)
 	{
+		pthread_mutex_unlock(data->print);
 		pthread_mutex_destroy(data->print);
 		free(data->print);
 	}
@@ -70,6 +72,7 @@ void	*check_life(void *da)
 			{
 				printf("time_since[%ld]\n", data->thrds[j].philo->life_left.time_since);
 				print_action(data, DIED, j, ft_get_time(&data->time));
+				printf("Sad he died\n");
 				philo_stop(data);
 				data->go_on = FALSE;
 				return (NULL);
