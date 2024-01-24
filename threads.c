@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 12:53:45 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:54:11 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	*routine(void *d)
 	all = (t_data_id *)d;
 	id = all->id;
 	data = all->data;
-	free(all);
+	free(d);
+	//free(all);
 	ft_msleep(100);
 	//printf("id[%d]\n", all->id % 2);
 	if (data->thrds[id].philo->start == TRUE && id % 2 != 0)
@@ -73,7 +74,8 @@ t_data_id	*get_data_id(t_data *data, int id)
 
 void	make_threads(t_data *data)
 {
-	int		i;
+	int			i;
+	t_data_id	*data_id;
 
 	i = 0;
 	data->thrds = malloc(sizeof(t_thread) * data->nb_philo);
@@ -89,26 +91,39 @@ void	make_threads(t_data *data)
 		data->thrds[i].philo->n_fork = 0;
 		data->thrds[i].philo->start = TRUE;
 		data->thrds[i].philo->go_on = TRUE;
+		data->thrds[i].philo->fork_av = TRUE;
+		data_id = get_data_id(data, i);
 		pthread_mutex_init(data->thrds[i].philo->fork, NULL);
 		pthread_create(data->thrds[i].thread, NULL,
-			&routine, get_data_id(data, i));
+			&routine, data_id);
+		free(data_id);
+		pthread_detach(*data->thrds[i].thread);
 		i++;
 	}
 	data->thread_alive = malloc(sizeof(pthread_t));
 	pthread_create(data->thread_alive, NULL, &check_life, data);
+	pthread_detach(*data->thread_alive);//???????????????????????
 	join_philo(data);
-	ft_close(data);
+	while (TRUE)
+		if (data->go_on == FALSE)
+		{
+			printf("fine\n");
+			ft_close(data);
+		}
 }
 
 void	join_philo(t_data *data)
 {
-	int	j;
+	// int	j;
 
-	j = 0;
+	// j = 0;
 	pthread_join(*data->thread_alive, NULL);
-	while (j < data->nb_philo)
+	/*if (data->nb_fork == 1)
+			return ;*/
+	/*while (j < data->nb_fork)
 	{
 		pthread_join(*data->thrds[j].thread, NULL);
+		printf("qualvghvghcosa\n");
 		j++;
-	}
+	}*/
 }

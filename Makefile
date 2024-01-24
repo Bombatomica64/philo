@@ -1,7 +1,7 @@
 
 NAME = philo
 
-CC = cc -g -Wall -Wextra -Werror 
+CC = cc -fsanitize=thread -g -Wall -Wextra -Werror
 
 SRC = checks.c  free.c  ft_atoi.c  initialize.c \
  		main.c  print.c  threads.c fork.c death.c 
@@ -11,7 +11,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) -lpthread
+	@$(CC) $(OBJ) $(LDFLAGS) -o $(NAME) -lpthread
 	@echo "Compiled "$(NAME)" successfully!"
 
 %.o: %.c
@@ -50,7 +50,7 @@ vall: all
 	./$(NAME) 3 800 200 200 1
 
 hell: all
-	valgrind --tool=helgrind \
-	./$(NAME) 3 800 200 200 1
+	valgrind  --tool=helgrind \
+	./$(NAME) 1 800 200 200 1
 
 .PHONY: all clean fclean bonus re replay

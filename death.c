@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 15:25:42 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:25:35 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_close(t_data *data)
 	i = 0;
 	while (i < data->nb_fork)
 	{
-		pthread_detach(*data->thrds[i].thread);
+		//printf("i[%d]\n", i);
+		//pthread_detach(*data->thrds[i].thread);
 		free(data->thrds[i].thread);
 		if (data->thrds[i].philo->fork_av == FALSE)
 			pthread_mutex_unlock(data->thrds[i].philo->fork);
@@ -78,6 +79,7 @@ void	*check_life(void *da)
 				philo_stop(data);
 				data->go_on = FALSE;
 				//exit(EXIT_FAILURE); ///////////////////////////////////////////////////////////////////////////////////////////////
+				pthread_detach(*data->thread_alive);
 				return (NULL);
 			}
 			//printf("\033[32mj = %d\033[0m\n", j);
