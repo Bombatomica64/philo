@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/23 16:03:00 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:03:19 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_philo
 	int					n_fork;
 	t_time				life_left;
 	t_bool				start;
-	t_bool				alive;
+	t_bool				fork_av;
 	t_bool				go_on;
 	pthread_mutex_t		*fork;
 }	t_philo;
@@ -86,6 +86,7 @@ typedef struct s_data
 	t_time				time;
 	t_bool				go_on;
 	pthread_mutex_t		*print;
+	t_bool				print_av;
 }	t_data;
 
 typedef struct s_data_id
