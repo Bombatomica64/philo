@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 16:54:11 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:07:36 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_food(t_data *data, int id)
 	print_action(data, EAT, id, ft_get_time(&data->time));
 	get_start(&data->thrds[id].philo->life_left);
 	ft_msleep(data->time_to_eat);
-	data->thrds[id].philo->left_to_eat--;	
+	data->thrds[id].philo->left_to_eat--;
 	return (1);
 }
 
@@ -38,13 +38,13 @@ void	*routine(void *d)
 	all = (t_data_id *)d;
 	id = all->id;
 	data = all->data;
-	free(d);
+	//free(d);
 	//free(all);
+	//ciao
 	ft_msleep(100);
-	//printf("id[%d]\n", all->id % 2);
 	if (data->thrds[id].philo->start == TRUE && id % 2 != 0)
 	{
-		ft_msleep(100); ///////non cambia nulla se cambio il valore
+		ft_msleep(100);
 		printf("sveglia dispari%d\n", id);
 	}
 	data->thrds[id].philo->start = FALSE;
@@ -58,7 +58,6 @@ void	*routine(void *d)
 		if (data->thrds->philo->left_to_eat == 0)
 			data->thrds[id].philo->go_on = FALSE;
 	}
-	data->nb_philo--;
 	return (NULL);
 }
 
@@ -96,20 +95,17 @@ void	make_threads(t_data *data)
 		pthread_mutex_init(data->thrds[i].philo->fork, NULL);
 		pthread_create(data->thrds[i].thread, NULL,
 			&routine, data_id);
-		free(data_id);
+		//free(data_id);
 		pthread_detach(*data->thrds[i].thread);
 		i++;
 	}
 	data->thread_alive = malloc(sizeof(pthread_t));
 	pthread_create(data->thread_alive, NULL, &check_life, data);
-	pthread_detach(*data->thread_alive);//???????????????????????
+	pthread_detach(*data->thread_alive);
 	join_philo(data);
 	while (TRUE)
 		if (data->go_on == FALSE)
-		{
-			printf("fine\n");
 			ft_close(data);
-		}
 }
 
 void	join_philo(t_data *data)

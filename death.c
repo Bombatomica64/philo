@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 17:25:35 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:40:50 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	ft_close(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->nb_fork)
+	(void)data;
+	printf("i[%d]\n", i);
+/* 	while (i < data->nb_fork)
 	{
 		//printf("i[%d]\n", i);
 		//pthread_detach(*data->thrds[i].thread);
@@ -39,7 +41,7 @@ void	ft_close(t_data *data)
 		pthread_mutex_destroy(data->print);
 		free(data->print);
 	}
-	free(data);
+	free(data); */
 	exit(EXIT_FAILURE);
 }
 

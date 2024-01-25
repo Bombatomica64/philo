@@ -1,8 +1,8 @@
 
 NAME = philo
 
-CC = cc -fsanitize=thread -g -Wall -Wextra -Werror
-
+CC = cc -g -Wall -Wextra -Werror
+CC_THREAD = cc -fsanitize=thread -g -Wall -Wextra -Werror
 SRC = checks.c  free.c  ft_atoi.c  initialize.c \
  		main.c  print.c  threads.c fork.c death.c 
 
@@ -11,13 +11,17 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(LDFLAGS) -o $(NAME) -lpthread
+	@$(CC) $(OBJ) -o $(NAME) -lpthread
 	@echo "Compiled "$(NAME)" successfully!"
 
 %.o: %.c
 	@$(CC) -c $< -o $@
 
 bonus : all
+
+all_thread: $(OBJ)
+	@$(CC_THREAD) $(OBJ) -o $(NAME) -lpthread
+	@echo "Compiled "$(NAME)" successfully!"
 
 clean:
 	@rm -f $(OBJ)
