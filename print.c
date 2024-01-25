@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 13:05:15 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:37:09 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ void	print_action(t_data *data, t_action action, int id, long time_since)
 	pthread_mutex_lock(data->print);
 	data->print_av = FALSE;
 	if (action == EAT)
-		printf("%ld philo[%d] is eating\n", time_since, id + 1);
+		printf("%ld philo[%d] is eating\n", time_since, id);
 	else if (action == SLEEP)
-		printf("%ld philo[%d] is sleeping\n", time_since, id + 1);
+		printf("%ld philo[%d] is sleeping\n", time_since, id);
 	else if (action == THINK)
-		printf("%ld philo[%d] is thinking\n", time_since, id + 1);
+		printf("%ld philo[%d] is thinking\n", time_since, id);
 	else if (action == DIED)
-		printf("%ld philo[%d] died\n", time_since, id + 1);
+		printf("%ld philo[%d] died\n", time_since, id);
 	else if (action == FORK)
-		printf("%ld philo[%d] has taken a fork\n", time_since, id + 1);
+		printf("%ld philo[%d] has taken a fork\n", time_since, id);
 	else if (action == FORK_LEFT)
-		printf("\033[35m%ld philo[%d] has left a fork\033[0m\n", time_since, id + 1);
+		printf("\033[35m%ld philo[%d] has left a fork\033[0m\n", time_since, id);
 	pthread_mutex_unlock(data->print);
 	data->print_av = TRUE;
 }

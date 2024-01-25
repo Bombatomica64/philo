@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 13:03:19 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:29:57 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_data
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nb_eat;
+	int 				nb_times_eaten;
+	pthread_mutex_t		nb_eaten_mutex;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
 	t_time				time;

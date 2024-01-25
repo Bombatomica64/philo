@@ -1,4 +1,3 @@
-
 NAME = philo
 
 CC = cc -g -Wall -Wextra -Werror
@@ -51,7 +50,7 @@ val: all
 
 vall: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
-	./$(NAME) 3 800 200 200 1
+	./$(NAME) 3 800 200 200
 
 hell: all
 	valgrind  --tool=helgrind \
