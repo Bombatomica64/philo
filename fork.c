@@ -6,12 +6,12 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/25 16:54:24 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:29:55 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/*
 void	fork_releasing(t_data *data, int id)
 {
 	if (data->thrds[id].philo->go_on == FALSE)
@@ -68,3 +68,4 @@ int	giveup_fork(pthread_mutex_t *fork, t_data *data, int id)
 	//print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
 	return (-1);
 }
+*/

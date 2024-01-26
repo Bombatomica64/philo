@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/25 12:43:27 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:34:25 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,11 @@ void	init_data(t_data *data, int ac, char **av)
 		data->nb_eat = ft_atoi(av[5]);
 	else
 		data->nb_eat = -4666;
-	data->print = NULL;
-	data->print = malloc(sizeof(pthread_mutex_t));
-	if (data->print == NULL)
-		printf("Error: malloc failed\n");
-	else 
-		pthread_mutex_init(data->print, NULL);
+	//data->print = NULL;
+	// data->print = malloc(sizeof(pthread_mutex_t));
+	// if (data->print == NULL)
+	// 	printf("Error: malloc failed\n");
+	// else 
+	data->eating = TRUE;
+		pthread_mutex_init(&data->print, NULL);
 }

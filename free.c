@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:22:58 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/22 18:12:09 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:48:12 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	free_all(t_data *data)
 		i++;
 	}
 	free(data->thrds);
-	if (data->print)
-	{
-		pthread_mutex_destroy(data->print);
-		free(data->print);
-	}
+	//if (data->print)
+	//{
+		pthread_mutex_destroy(&data->print);
+		//free(data->print);
+	//}
 	free(data);
 }
 
@@ -41,5 +41,5 @@ void	free_philo(t_data *data, int i)
 
 void	mutex_destroy(t_data *data, int i)
 {
-	pthread_mutex_destroy(data->thrds[i].philo->fork);
+	pthread_mutex_destroy(&data->thrds[i].philo->fork);
 }

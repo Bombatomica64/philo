@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/26 10:44:00 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:43:00 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_philo
 	t_bool				fork_av; // TRUE if fork is available.
 	t_bool				go_on;	// TRUE if program should continue.
 	t_bool				overfed; // TRUE if philo is full.
-	pthread_mutex_t		*fork; // Philo's fork.
+	pthread_mutex_t		fork; // Philo's fork.
 }	t_philo;
 
 typedef struct s_thread
@@ -83,14 +83,18 @@ typedef struct s_data
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nb_eat;
+	int					nb_fed;
 	//int 				nb_times_eaten;
 	pthread_mutex_t		nb_eaten_mutex;
+	pthread_mutex_t		end;
+	pthread_mutex_t		*fork;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
 	t_time				time;
 	t_bool				go_on;
-	pthread_mutex_t		*print;
+	pthread_mutex_t		print;
 	t_bool				print_av;
+	t_bool				eating;
 }	t_data;
 
 typedef struct s_data_id

@@ -19,7 +19,7 @@ $(NAME): $(OBJ)
 bonus : all
 
 all_thread: $(OBJ)
-	@$(CC_THREAD) $(OBJ) -o $(NAME) -lpthread
+	@$(CC_THREAD)  $(OBJ) -o $(NAME) -lpthread
 	@echo "Compiled "$(NAME)" successfully!"
 
 clean:
@@ -39,7 +39,7 @@ replay:
 
 bonus : all
 
-val: all
+val: re
 	@read -p "Enter number of philo: " cmd; \
 	read -p "Enter time to die: " cmd2; \
 	read -p "Enter time to eat: " cmd3; \
@@ -48,11 +48,11 @@ val: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
 	./$(NAME) $$cmd $$cmd2 $$cmd3 $$cmd4 $$cmd5
 
-vall: all
+vall: re
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
 	./$(NAME) 3 800 200 200
 
-hell: all
+hell: re
 	valgrind  --tool=helgrind \
 	./$(NAME) 1 800 200 200 1
 
