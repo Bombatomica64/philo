@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/24 16:48:04 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:54:24 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int	giveup_fork(pthread_mutex_t *fork, t_data *data, int id)
 		return (0);
 	data->thrds[id].philo->fork_av = TRUE;
 	// printf("\033[35mlock-id[%d]\033[0m\n", id);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
+	//print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
 	return (-1);
 }

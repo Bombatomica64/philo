@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/24 18:29:57 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/26 10:44:00 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef enum e_action
 	THINK,
 	FORK,
 	FORK_LEFT,
-	DIED
+	DIED,
+	FED
 }	t_action;
 
 typedef enum e_bool
@@ -57,14 +58,15 @@ typedef struct s_time
 
 typedef struct s_philo
 {
-	int					id;
-	int					left_to_eat;
-	int					n_fork;
-	t_time				life_left;
-	t_bool				start;
-	t_bool				fork_av;
-	t_bool				go_on;
-	pthread_mutex_t		*fork;
+	int					id; // Philo's id.
+	int					left_to_eat; // Number of meals left.
+	int					n_fork; // Number of forks the philo has.
+	t_time				life_left; // Time since last meal.
+	t_bool				start; // TRUE if philo has just started.
+	t_bool				fork_av; // TRUE if fork is available.
+	t_bool				go_on;	// TRUE if program should continue.
+	t_bool				overfed; // TRUE if philo is full.
+	pthread_mutex_t		*fork; // Philo's fork.
 }	t_philo;
 
 typedef struct s_thread
@@ -81,7 +83,7 @@ typedef struct s_data
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nb_eat;
-	int 				nb_times_eaten;
+	//int 				nb_times_eaten;
 	pthread_mutex_t		nb_eaten_mutex;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
@@ -103,10 +105,10 @@ int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
 int		giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
 void	init_data(t_data *data, int ac, char **av);
 void	input_check(char **av, int ac, t_data *data);
-void 	make_threads(t_data *data);
-void 	join_philo(t_data *data);
-void 	fork_acquiring(t_data *data, int id);
-void 	fork_releasing(t_data *data, int id);
+void	make_threads(t_data *data);
+void	join_philo(t_data *data);
+void	fork_acquiring(t_data *data, int id);
+void	fork_releasing(t_data *data, int id);
 void	free_all(t_data *data);
 void	free_philo(t_data *data, int i);
 void	mutex_destroy(t_data *data, int i);
