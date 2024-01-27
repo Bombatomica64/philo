@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 15:57:14 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:24:05 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_data
 	int					time_to_sleep;
 	int					nb_eat;
 	int					nb_fed;
-	//int 				nb_times_eaten;
+	pthread_mutex_t		go_on_mutex;
 	pthread_mutex_t		nb_eaten_mutex;
 	pthread_mutex_t		end;
 	pthread_mutex_t		*fork;
@@ -107,6 +107,7 @@ long	ft_get_time(t_time *st);
 int		ft_atoi(const char *str);
 int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
 int		giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
+t_bool	go_on_change(t_data *data, t_bool action);
 void	init_data(t_data *data, int ac, char **av);
 void	input_check(char **av, int ac, t_data *data);
 void	make_threads(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 15:58:22 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:26:50 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*check_life(void *da)
 
 	data = (t_data *)da;
 	j = data->nb_fork;
-	while (j != -1 && data->go_on == TRUE)
+	while (j != -1 && go_on_change(data, FALSE) == TRUE)
 	{
 		j = 0;
 		while (j < data->nb_fork)
@@ -60,9 +60,8 @@ void	*check_life(void *da)
 					&data->thrds[j].philo->life_left);
 			if (data->thrds[j].philo->life_left.time_since > data->time_to_die)
 			{
-				data->go_on = FALSE;
+				go_on_change(data, TRUE);
 				print_action(data, DIED, j, ft_get_time(&data->time));
-				philo_stop(data);
 				return (NULL);
 			}
 			j++;

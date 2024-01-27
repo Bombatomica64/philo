@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 15:57:44 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:25:59 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ long	ft_get_time(t_time *start)
 
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
-	if (data->thrds[id].philo->go_on == FALSE && action != DIED)
+	if (go_on_change(data, FALSE) == FALSE && action != DIED)
 	{
 		return ;
 	}

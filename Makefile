@@ -52,7 +52,7 @@ vall: re
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
 	./$(NAME) 3 800 200 200
 
-hell: re
+hell:
 	valgrind  --tool=helgrind \
 	./$(NAME) 4 800 200 200 1
 

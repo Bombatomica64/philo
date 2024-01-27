@@ -6,53 +6,33 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 16:01:28 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:32:08 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-/*
-	pthread_mutex_lock(&data->nb_eaten_mutex);
-	data->nb_times_eaten--;
-	printf("data->nb_times_eaten[%d]\n", data->nb_times_eaten);
-	pthread_mutex_unlock(&data->nb_eaten_mutex);
-*/
-	/*
-	if(both == FALSE)
+t_bool	go_on_change(t_data *data, t_bool action)
+{
+	pthread_mutex_lock(&data->go_on_mutex);
+	if (action == TRUE)
 	{
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-	
-		pthread_mutex_unlock(data->thrds[id].philo->fork);
-		return ;
-	}
-	//print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-	if (id == data->nb_fork - 1)
-	{
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-	
-		pthread_mutex_unlock(data->thrds[0].philo->fork);
+		data->go_on = FALSE;
+		philo_stop(data);
+		pthread_mutex_unlock(&data->go_on_mutex);
+		pthread_mutex_destroy(&data->go_on_mutex);
+		return (FALSE);
 	}
 	else
 	{
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-		pthread_mutex_unlock(data->thrds[id + 1].philo->fork);
+		// if (data->go_on == FALSE)
+		// 	return (FALSE);
+		pthread_mutex_unlock(&data->go_on_mutex);
+		return (data->go_on);
 	}
-	if (both == TRUE)
-	{
-		print_action(data, SLEEP, id, ft_get_time(&data->time));
-		ft_msleep(data->time_to_sleep);
-		print_action(data, THINK, id, ft_get_time(&data->time));
-	}*/
+}
 
-		/* fork_acquiring(data, id);
-		if (data->thrds[id].philo->n_fork == 2)
-			get_food(data, id);
-		fork_releasing(data, id);
-		think_and_die(data, id);
-		if (data->thrds->philo->left_to_eat == 0)
-			data->thrds[id].philo->go_on = FALSE; */
 void	number_of_times_eaten(t_data *data, int id, t_bool eat)
 {
 	int	i;
@@ -80,9 +60,7 @@ void	number_of_times_eaten(t_data *data, int id, t_bool eat)
 		if (i == data->nb_philo)
 		{
 			print_action(data, FED, id, ft_get_time(&data->time));
-			pthread_mutex_unlock(&data->nb_eaten_mutex);
-			pthread_mutex_destroy(&data->nb_eaten_mutex);
-			return ;
+			go_on_change(data, TRUE);
 		}
 	}
 	pthread_mutex_unlock(&data->nb_eaten_mutex);
@@ -105,7 +83,6 @@ int	get_food(t_data *data, int id)
 
 void	think_and_die(t_data *data, int id, t_bool both)
 {
-		//pthread_mutex_unlock(data->thrds[id].philo->fork);
 	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
 	if (both == TRUE)
 	{
@@ -161,10 +138,9 @@ void	*routine(void *d)
 			print_action(data, FORK, id, ft_get_time(&data->time));
 			get_food(data, id);
 			print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-			both = TRUE;	if (data->eating == FALSE)
-		pthread_mutex_unlock(&data->nb_eaten_mutex);
+			both = TRUE;
 			pthread_mutex_unlock(&data->fork[id + 1]);
-			data->thrds[id + 1].philo->fork_av = TRUE;	
+			data->thrds[id + 1].philo->fork_av = TRUE;
 			pthread_mutex_unlock(&data->fork[id]);
 			data->thrds[id].philo->fork_av = TRUE;
 			think_and_die(data, id, both);
