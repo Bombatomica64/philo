@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 15:25:21 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:01:28 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void	number_of_times_eaten(t_data *data, int id, t_bool eat)
 {
 	int	i;
 
-	if (pthread_mutex_lock(&data->nb_eaten_mutex) != 0)
-		perror ("pthread_mutex_lock");
+	pthread_mutex_lock(&data->nb_eaten_mutex);
 	data->eating = FALSE;
 	if (eat == TRUE)
 	{
@@ -81,7 +80,9 @@ void	number_of_times_eaten(t_data *data, int id, t_bool eat)
 		if (i == data->nb_philo)
 		{
 			print_action(data, FED, id, ft_get_time(&data->time));
-			data->go_on = FALSE;
+			pthread_mutex_unlock(&data->nb_eaten_mutex);
+			pthread_mutex_destroy(&data->nb_eaten_mutex);
+			return ;
 		}
 	}
 	pthread_mutex_unlock(&data->nb_eaten_mutex);
@@ -148,7 +149,7 @@ void	*routine(void *d)
 			pthread_mutex_unlock(&data->fork[0]);
 			data->thrds[0].philo->fork_av = TRUE;
 			print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-			both = TRUE;		
+			both = TRUE;
 			pthread_mutex_unlock(&data->fork[id]);
 			data->thrds[id].philo->fork_av = TRUE;
 			think_and_die(data, id, both);
@@ -160,10 +161,10 @@ void	*routine(void *d)
 			print_action(data, FORK, id, ft_get_time(&data->time));
 			get_food(data, id);
 			print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
-			both = TRUE;
+			both = TRUE;	if (data->eating == FALSE)
+		pthread_mutex_unlock(&data->nb_eaten_mutex);
 			pthread_mutex_unlock(&data->fork[id + 1]);
-			data->thrds[id + 1].philo->fork_av = TRUE;
-		
+			data->thrds[id + 1].philo->fork_av = TRUE;	
 			pthread_mutex_unlock(&data->fork[id]);
 			data->thrds[id].philo->fork_av = TRUE;
 			think_and_die(data, id, both);

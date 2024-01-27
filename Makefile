@@ -54,6 +54,6 @@ vall: re
 
 hell: re
 	valgrind  --tool=helgrind \
-	./$(NAME) 1 800 200 200 1
+	./$(NAME) 4 800 200 200 1
 
 .PHONY: all clean fclean bonus re replay
