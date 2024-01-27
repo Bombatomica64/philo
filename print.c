@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/26 17:50:07 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:43:35 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ long	ft_get_time(t_time *start)
 
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
-	if (data->go_on == FALSE)
+	if (data->go_on == FALSE && action != DIED)
 	{
-		//pthread_mutex_unlock(data->print);
 		return ;
 	}
 	pthread_mutex_lock(&data->print);
@@ -83,5 +82,6 @@ void	print_action(t_data *data, t_action action, int id, long time_since)
 		printf("\033[32m%ld Each philo ate %i times and it's full\033[0m ⭐️\n",
 			time_since, data->nb_eat);
 	pthread_mutex_unlock(&data->print);
-	data->print_av = TRUE;
+	if (action == DIED)
+		pthread_mutex_destroy(&data->print);
 }
