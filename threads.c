@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 16:32:08 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:36:09 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,29 @@
 
 t_bool	go_on_change(t_data *data, t_bool action)
 {
+	t_bool	tmp;
+
 	pthread_mutex_lock(&data->go_on_mutex);
 	if (action == TRUE)
 	{
 		data->go_on = FALSE;
 		philo_stop(data);
 		pthread_mutex_unlock(&data->go_on_mutex);
+		return (FALSE);
+	}
+	else if (action == ERROR)
+	{
+		pthread_mutex_unlock(&data->go_on_mutex);
 		pthread_mutex_destroy(&data->go_on_mutex);
 		return (FALSE);
 	}
-	else
+	else if (action == FALSE)
 	{
-		// if (data->go_on == FALSE)
-		// 	return (FALSE);
+		tmp = data->go_on;
 		pthread_mutex_unlock(&data->go_on_mutex);
-		return (data->go_on);
+		return (tmp);
 	}
+	return (ERROR);
 }
 
 void	number_of_times_eaten(t_data *data, int id, t_bool eat)
@@ -66,7 +73,9 @@ void	number_of_times_eaten(t_data *data, int id, t_bool eat)
 	pthread_mutex_unlock(&data->nb_eaten_mutex);
 	data->eating = TRUE;
 }
-
+// crea un check_life per nb_time eaten, e crea una funzione check_food(t_data *data, int id, int add);
+// che incrementa il numero di volte che ha mangiato il filosofo e controlla se ha mangiato abbastanza volte
+// TODO number_of_times_eaten quindi va spostata. per risolvere deadlock. mutex dentro un altro mutex
 int	get_food(t_data *data, int id)
 {
 	if (data->thrds[id].philo->go_on == FALSE)
@@ -122,7 +131,11 @@ void	*routine(void *d)
 			pthread_mutex_lock(&data->fork[0]);
 			data->thrds[0].philo->fork_av = FALSE;
 			print_action(data, FORK, id, ft_get_time(&data->time));
+			
+			
 			get_food(data, id);
+			
+			
 			pthread_mutex_unlock(&data->fork[0]);
 			data->thrds[0].philo->fork_av = TRUE;
 			print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
@@ -136,7 +149,11 @@ void	*routine(void *d)
 			pthread_mutex_lock(&data->fork[id + 1]);
 			data->thrds[id + 1].philo->fork_av = FALSE;
 			print_action(data, FORK, id, ft_get_time(&data->time));
+			
+			
 			get_food(data, id);
+			
+			
 			print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
 			both = TRUE;
 			pthread_mutex_unlock(&data->fork[id + 1]);
@@ -195,7 +212,7 @@ void	make_threads(t_data *data)
 		pthread_detach(*data->thrds[i].thread);
 		i++;
 	}
-	i = 0; 
+	i = 0;
 	while (i < data->nb_fork)
 	{
 		pthread_mutex_unlock(&data->fork[i]);
@@ -207,7 +224,7 @@ void	make_threads(t_data *data)
 	join_philo(data);
 	pthread_detach(*data->thread_alive);
 	while (TRUE)
-		if (data->go_on == FALSE)
+		if (go_on_change(data, FALSE) == FALSE)
 		{
 			data->nb_fed = data->nb_fork;
 			printf("fine\n");

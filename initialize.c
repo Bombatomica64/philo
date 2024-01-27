@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/26 16:34:25 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:46:59 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	init_data(t_data *data, int ac, char **av)
 	// if (data->print == NULL)
 	// 	printf("Error: malloc failed\n");
 	// else 
+	pthread_mutex_init(&data->go_on_mutex, NULL);
 	data->eating = TRUE;
 		pthread_mutex_init(&data->print, NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 16:26:50 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:59:15 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_close(t_data *data)
 		free(data->thrds[i].philo);
 		i++;
 	}
+	go_on_change(data, ERROR);
 	free(data->fork);
 	free(data->thread_alive);
 	free(data->thrds);
