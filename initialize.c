@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 09:57:52 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:13:16 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ void	init_data(t_data *data, int ac, char **av)
 	pthread_mutex_init(&data->go_on_mutex, NULL);
 	data->eating = TRUE;
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->end, NULL);
 }

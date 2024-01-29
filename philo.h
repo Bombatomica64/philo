@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 12:57:04 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:18:05 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ void	get_start(t_time *start);
 void	philo_stop(t_data *data);
 void	ft_close(t_data *data);
 void	check_food(t_data *data, int id, int add);
+void	destroy_mutexes(t_data *data, int i, t_bool destroy);
 
 #endif

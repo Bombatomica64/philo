@@ -6,34 +6,49 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:54:40 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 12:57:58 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:29:37 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_bool	go_on_change(t_data *data, t_bool action)
+void	handle_action(t_data *data, t_bool action, t_bool *tmp)
 {
-	t_bool	tmp;
-
 	pthread_mutex_lock(&data->go_on_mutex);
 	if (action == TRUE)
 	{
 		data->go_on = FALSE;
 		philo_stop(data);
-		pthread_mutex_unlock(&data->go_on_mutex);
+	}
+	else if (action == FALSE)
+	{
+		*tmp = data->go_on;
+	}
+	pthread_mutex_unlock(&data->go_on_mutex);
+}
+
+t_bool	go_on_change(t_data *data, t_bool action)
+{
+	t_bool			tmp;
+	pthread_mutex_t	mutex;
+
+	pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_lock(&mutex);
+	if (data->go_on == FALSE)
+	{
+		pthread_mutex_unlock(&mutex);
+		pthread_mutex_destroy(&mutex);
 		return (FALSE);
 	}
-	else if (action == ERROR)
+	pthread_mutex_unlock(&mutex);
+	pthread_mutex_destroy(&mutex);
+	handle_action(data, action, &tmp);
+	if (action == TRUE || action == ERROR)
 	{
-		pthread_mutex_unlock(&data->go_on_mutex);
-		pthread_mutex_destroy(&data->go_on_mutex);
 		return (FALSE);
 	}
 	else if (action == FALSE)
 	{
-		tmp = data->go_on;
-		pthread_mutex_unlock(&data->go_on_mutex);
 		return (tmp);
 	}
 	return (ERROR);

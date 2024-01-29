@@ -6,18 +6,59 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 12:09:51 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:25:44 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	destroy_mutexes(t_data *data, int num, t_bool destroy)
+{
+	int		i;
+
+	pthread_mutex_lock(&data->end);
+	i = 0;
+	if (destroy == TRUE)
+	{
+		printf("here\n");
+		while (i < num)
+		{
+			pthread_mutex_destroy(&data->fork[i]);
+			i++;
+		}
+	}
+	else
+	{
+		if (destroy == FALSE)
+		{
+			printf("destroy_mutexes\n num = %d\n", num);
+			pthread_mutex_lock(&data->fork[num]);
+			pthread_mutex_unlock(&data->end);
+			return ;
+		}
+		else
+		{
+			pthread_mutex_unlock(&data->fork[num]);
+			pthread_mutex_unlock(&data->end);
+			return ;
+		}
+	}
+}
+
 void	ft_close(t_data *data)
 {
 	int	i;
 
-	i = 0;
 	ft_msleep(data->time_to_eat + 10);
+	i = 0;
+	destroy_mutexes(data, data->nb_fork, TRUE);
+	while (i < data->nb_fork)
+	{
+		pthread_join(*data->thrds[i].thread, NULL);
+		pthread_mutex_destroy(&data->fork[i]);
+		i++;
+	}
+	i = 0;
 	while (i < data->nb_fork)
 	{
 		free(data->thrds[i].thread);
@@ -25,6 +66,9 @@ void	ft_close(t_data *data)
 		i++;
 	}
 	go_on_change(data, ERROR);
+	pthread_mutex_destroy(&data->go_on_mutex);
+	pthread_mutex_destroy(&data->nb_eaten_mutex);
+	pthread_mutex_destroy(&data->print);
 	free(data->fork);
 	free(data->thread_alive);
 	free(data->thrds);
