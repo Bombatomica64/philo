@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 16:46:59 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/29 09:57:52 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,7 @@ void	init_data(t_data *data, int ac, char **av)
 		data->nb_eat = ft_atoi(av[5]);
 	else
 		data->nb_eat = -4666;
-	//data->print = NULL;
-	// data->print = malloc(sizeof(pthread_mutex_t));
-	// if (data->print == NULL)
-	// 	printf("Error: malloc failed\n");
-	// else 
 	pthread_mutex_init(&data->go_on_mutex, NULL);
 	data->eating = TRUE;
-		pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->print, NULL);
 }

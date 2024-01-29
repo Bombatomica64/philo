@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/27 16:24:05 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 10:27:50 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,12 @@ void	free_all(t_data *data);
 void	free_philo(t_data *data, int i);
 void	mutex_destroy(t_data *data, int i);
 void	print_action(t_data *data, t_action action, int id, long time_since);
-void	*check_life(void *da);
-void	ft_msleep(int time);
-void	get_start(t_time *start);
-void	philo_stop(t_data *data);
-void	ft_close(t_data *data);
+void prints(t_action action, long time_since, int id, t_data * data);
+void *check_life(void *da);
+void ft_msleep(int time);
+void get_start(t_time *start);
+void philo_stop(t_data *data);
+void ft_close(t_data *data);
+void	check_food(t_data *data, int id, int add);
 
 #endif

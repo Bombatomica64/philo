@@ -3,7 +3,7 @@ NAME = philo
 CC = cc -g -Wall -Wextra -Werror
 CC_THREAD = cc -fsanitize=thread -g -Wall -Wextra -Werror
 SRC = checks.c  free.c  ft_atoi.c  initialize.c \
- 		main.c  print.c  threads.c fork.c death.c 
+ 		main.c  print.c  threads.c fork.c death.c time.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -52,7 +52,7 @@ vall: re
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
 	./$(NAME) 3 800 200 200
 
-hell:
+hell: re
 	valgrind  --tool=helgrind \
 	./$(NAME) 4 800 200 200 1
 
