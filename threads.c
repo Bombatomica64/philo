@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 12:01:36 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:49:44 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	*routine(void *d)
 		return (NULL);
 	}
 	if (data->thrds[id].philo->start == TRUE && id % 2 != 0)
-		ft_msleep(100);
+		ft_msleep(1);
 	while (data->thrds[id].philo->go_on == TRUE)
 	{
 		both = FALSE;
