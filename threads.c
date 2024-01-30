@@ -6,22 +6,12 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 11:43:22 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:53:48 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
-
-t_data_id	*get_data_id(t_data *data, int id)
-{
-	t_data_id	*data_id;
-
-	data_id = malloc(sizeof(t_data_id));
-	data_id->data = data;
-	data_id->id = id;
-	return (data_id);
-}
 
 void	initialize_philosopher(t_data *data, int i)
 {
@@ -43,9 +33,9 @@ void	create_philosopher_thread(t_data *data, int i)
 	data_id = get_data_id(data, i);
 	pthread_mutex_init(&data->fork[i], NULL);
 	pthread_mutex_lock(&data->fork[i]);
-	data->thrds[i].philo->fork_av = FALSE;
 	pthread_create(data->thrds[i].thread, NULL, &routine, data_id);
 }
+
 void	unlock_forks(t_data *data)
 {
 	int	i;
@@ -54,7 +44,6 @@ void	unlock_forks(t_data *data)
 	while (i < data->nb_fork)
 	{
 		pthread_mutex_unlock(&data->fork[i]);
-		data->thrds[i].philo->fork_av = TRUE;
 		i++;
 	}
 }

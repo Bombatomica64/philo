@@ -6,20 +6,20 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 10:57:27 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:57:38 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlen(const char *str)
+t_data_id	*get_data_id(t_data *data, int id)
 {
-	size_t	i;
+	t_data_id	*data_id;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	data_id = malloc(sizeof(t_data_id));
+	data_id->data = data;
+	data_id->id = id;
+	return (data_id);
 }
 
 int	fake_atoi(char *str, long long int *nbr)

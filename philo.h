@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 11:44:53 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:35:03 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ long		ft_get_time(t_time *st);
 int			ft_atoi(const char *str);
 int			get_fork(t_data *data, pthread_mutex_t *fork, int id);
 int			giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
+int			get_food(t_data *data, int id);
+size_t		ft_strlen(const char *s);
 t_bool		go_on_change(t_data *data, t_bool action);
 t_data_id	*get_data_id(t_data *data, int id);
 void		satisfied(t_data *data, int id);
@@ -129,6 +131,8 @@ void		ft_close(t_data *data);
 void		check_food(t_data *data, int id, int add);
 void		destroy_mutexes(t_data *data, int i, t_bool destroy);
 void		*routine(void *d);
+void		odd_wait(int id);
+void		*highlander(t_data *data, int id);
 void		think_and_die(t_data *data, int id, t_bool both);
 void		create_philosopher_thread(t_data *data, int i);
 
