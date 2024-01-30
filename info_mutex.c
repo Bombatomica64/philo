@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_mutex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:54:40 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 16:29:37 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:49:50 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@ void	handle_action(t_data *data, t_bool action, t_bool *tmp)
 t_bool	go_on_change(t_data *data, t_bool action)
 {
 	t_bool			tmp;
-	pthread_mutex_t	mutex;
+	//pthread_mutex_t	mutex;
 
-	pthread_mutex_init(&mutex, NULL);
-	pthread_mutex_lock(&mutex);
+	//pthread_mutex_init(&mutex, NULL);
+	pthread_mutex_lock(&data->mutex);
 	if (data->go_on == FALSE)
 	{
-		pthread_mutex_unlock(&mutex);
-		pthread_mutex_destroy(&mutex);
+		pthread_mutex_unlock(&data->mutex);
+		//pthread_mutex_destroy(&mutex);
 		return (FALSE);
 	}
-	pthread_mutex_unlock(&mutex);
-	pthread_mutex_destroy(&mutex);
+	else
+		pthread_mutex_unlock(&data->mutex);
+	//pthread_mutex_destroy(&mutex);
 	handle_action(data, action, &tmp);
 	if (action == TRUE || action == ERROR)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/30 12:33:58 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:46:08 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	get_food(t_data *data, int id)
 {
-	if (data->thrds[id].philo->go_on == FALSE)
+	if (go_on_change(data, FALSE) == FALSE)
 		return (0);
 	print_action(data, EAT, id, ft_get_time(&data->time));
 	get_start(&data->thrds[id].philo->life_left);
 	ft_msleep(data->time_to_eat);
-	if (data->thrds[id].philo->go_on == FALSE)
+	if (go_on_change(data, FALSE) == FALSE)
 		return (0);
 	check_food(data, id, 1);
 	return (1);

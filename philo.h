@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 12:35:03 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:40:09 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_philo
 	int					n_fork; // Number of forks the philo has.
 	t_time				life_left; // Time since last meal.
 	t_bool				start; // TRUE if philo has just started.
-	t_bool				fork_av; // TRUE if fork is available.
 	t_bool				go_on;	// TRUE if program should continue.
 	t_bool				overfed; // TRUE if philo is full.
 	pthread_mutex_t		fork; // Philo's fork.
@@ -88,11 +87,12 @@ typedef struct s_data
 	pthread_mutex_t		nb_eaten_mutex;
 	pthread_mutex_t		end;
 	pthread_mutex_t		*fork;
+	pthread_mutex_t		mutex;
+	pthread_mutex_t		print;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
 	t_time				time;
 	t_bool				go_on;
-	pthread_mutex_t		print;
 	t_bool				print_av;
 	t_bool				eating;
 }	t_data;
@@ -103,37 +103,37 @@ typedef struct s_data_id
 	int					id;
 }	t_data_id;
 
-long		ft_get_time(t_time *st);
-int			ft_atoi(const char *str);
-int			get_fork(t_data *data, pthread_mutex_t *fork, int id);
-int			giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
-int			get_food(t_data *data, int id);
-size_t		ft_strlen(const char *s);
-t_bool		go_on_change(t_data *data, t_bool action);
-t_data_id	*get_data_id(t_data *data, int id);
-void		satisfied(t_data *data, int id);
-void		init_data(t_data *data, int ac, char **av);
-void		input_check(char **av, int ac, t_data *data);
-void		make_threads(t_data *data);
-void		join_philo(t_data *data);
-void		fork_acquiring(t_data *data, int id);
-void		fork_releasing(t_data *data, int id);
-void		free_all(t_data *data);
-void		free_philo(t_data *data, int i);
-void		mutex_destroy(t_data *data, int i);
 void		print_action(t_data *data, t_action action, int id, long since);
 void		prints(t_action action, long time_since, int id, t_data *data);
-void		*check_life(void *da);
-void		ft_msleep(int time);
-void		get_start(t_time *start);
-void		philo_stop(t_data *data);
-void		ft_close(t_data *data);
-void		check_food(t_data *data, int id, int add);
+int			giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
+int			get_fork(t_data *data, pthread_mutex_t *fork, int id);
 void		destroy_mutexes(t_data *data, int i, t_bool destroy);
-void		*routine(void *d);
-void		odd_wait(int id);
-void		*highlander(t_data *data, int id);
 void		think_and_die(t_data *data, int id, t_bool both);
 void		create_philosopher_thread(t_data *data, int i);
+void		input_check(char **av, int ac, t_data *data);
+void		init_data(t_data *data, int ac, char **av);
+t_bool		go_on_change(t_data *data, t_bool action);
+void		check_food(t_data *data, int id, int add);
+void		fork_acquiring(t_data *data, int id);
+void		fork_releasing(t_data *data, int id);
+void		mutex_destroy(t_data *data, int i);
+t_data_id	*get_data_id(t_data *data, int id);
+void		*highlander(t_data *data, int id);
+void		satisfied(t_data *data, int id);
+void		free_philo(t_data *data, int i);
+int			get_food(t_data *data, int id);
+void		make_threads(t_data *data);
+int			ft_atoi(const char *str);
+size_t		ft_strlen(const char *s);
+void		join_philo(t_data *data);
+void		get_start(t_time *start);
+void		philo_stop(t_data *data);
+long		ft_get_time(t_time *st);
+void		free_all(t_data *data);
+void		ft_close(t_data *data);
+void		*check_life(void *da);
+void		ft_msleep(int time);
+void		*routine(void *d);
+void		odd_wait(int id);
 
 #endif
