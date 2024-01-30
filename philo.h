@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:08:52 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:07:31 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		mutex;
 	pthread_mutex_t		print;
+	pthread_mutex_t		check;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
 	t_time				time;
@@ -116,6 +117,7 @@ void		init_data(t_data *data, int ac, char **av);
 t_bool		go_on_change(t_data *data, t_bool action);
 void		check_food(t_data *data, int id, int add);
 long		ft_get_time(t_time *start, t_data *data);
+void		get_start(t_time *start, t_data *data);
 void		fork_acquiring(t_data *data, int id);
 void		fork_releasing(t_data *data, int id);
 void		mutex_destroy(t_data *data, int i);
@@ -124,11 +126,10 @@ void		*highlander(t_data *data, int id);
 void		satisfied(t_data *data, int id);
 void		free_philo(t_data *data, int i);
 int			get_food(t_data *data, int id);
-void		make_threads(t_data *data);
-int			ft_atoi(const char *str);
-size_t		ft_strlen(const char *s);
+void		make_threads(t_data *dataaaa);
+int			ft_atoi(const char *strrrr);
+size_t		ft_strlen(const char *sss);
 void		join_philo(t_data *data);
-void		get_start(t_time *start);
 void		philo_stop(t_data *data);
 void		free_all(t_data *data);
 void		ft_close(t_data *data);

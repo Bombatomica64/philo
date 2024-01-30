@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:42:56 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:08:10 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:07:56 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	handle_last_philosopher(t_data *data, int id, t_bool *both)
 	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
 	unlock_fork_and_print(data, 0);
-	*both = TRUE;
 	unlock_fork_and_print(data, id);
+	*both = TRUE;
 	think_and_die(data, id, *both);
 }
 
@@ -40,9 +40,9 @@ void	handle_other_philosophers(t_data *data, int id, t_bool *both)
 	pthread_mutex_lock(&data->fork[id + 1]);
 	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
+	unlock_fork_and_print(data, id);
 	unlock_fork_and_print(data, id + 1);
 	*both = TRUE;
-	unlock_fork_and_print(data, id);
 	think_and_die(data, id, *both);
 }
 
