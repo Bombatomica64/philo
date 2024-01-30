@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:10:43 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:42:31 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_close(t_data *data)
 	go_on_change(data, ERROR);
 	pthread_mutex_destroy(&data->go_on_mutex);
 	pthread_mutex_destroy(&data->nb_eaten_mutex);
-	pthread_mutex_destroy(&data->print);
+	//pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->mutex);
 	free(data->fork);
 	free(data->thread_alive);
