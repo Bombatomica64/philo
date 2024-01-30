@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 15:40:09 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:08:52 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_data
 	int					time_to_sleep;
 	int					nb_eat;
 	int					nb_fed;
+	pthread_mutex_t		time_mutex;
 	pthread_mutex_t		go_on_mutex;
 	pthread_mutex_t		nb_eaten_mutex;
 	pthread_mutex_t		end;
@@ -114,6 +115,7 @@ void		input_check(char **av, int ac, t_data *data);
 void		init_data(t_data *data, int ac, char **av);
 t_bool		go_on_change(t_data *data, t_bool action);
 void		check_food(t_data *data, int id, int add);
+long		ft_get_time(t_time *start, t_data *data);
 void		fork_acquiring(t_data *data, int id);
 void		fork_releasing(t_data *data, int id);
 void		mutex_destroy(t_data *data, int i);
@@ -128,7 +130,6 @@ size_t		ft_strlen(const char *s);
 void		join_philo(t_data *data);
 void		get_start(t_time *start);
 void		philo_stop(t_data *data);
-long		ft_get_time(t_time *st);
 void		free_all(t_data *data);
 void		ft_close(t_data *data);
 void		*check_life(void *da);

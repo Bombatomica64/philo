@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 15:23:03 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:10:43 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-/* 
-void	destroy_mutexes(t_data *data, int num, t_bool destroy)
-{
-	int		i;
-
-	pthread_mutex_lock(&data->end);
-	i = 0;
-	if (destroy == TRUE)
-	{
-		printf("here\n");
-		while (i < num)
-		{
-			pthread_mutex_destroy(&data->fork[i]);
-			i++;
-		}
-	}
-	else
-	{
-		if (destroy == FALSE)
-		{
-			printf("destroy_mutexes\n num = %d\n", num);
-			pthread_mutex_lock(&data->fork[num]);
-			pthread_mutex_unlock(&data->end);
-			return ;
-		}
-		else
-		{
-			pthread_mutex_unlock(&data->fork[num]);
-			pthread_mutex_unlock(&data->end);
-			return ;
-		}
-	}
-} */
 
 void	ft_close(t_data *data)
 {
@@ -53,6 +20,7 @@ void	ft_close(t_data *data)
 	while (i < data->nb_fork)
 	{
 		pthread_join(*data->thrds[i].thread, NULL);
+		printf("thread %d joined\n", i);
 		i++;
 	}
 	i = 0;
@@ -67,11 +35,7 @@ void	ft_close(t_data *data)
 	pthread_mutex_destroy(&data->go_on_mutex);
 	pthread_mutex_destroy(&data->nb_eaten_mutex);
 	pthread_mutex_destroy(&data->print);
-
-
 	pthread_mutex_destroy(&data->mutex);
-
-	
 	free(data->fork);
 	free(data->thread_alive);
 	free(data->thrds);
@@ -111,7 +75,7 @@ void	check_food(t_data *data, int id, int add)
 		}
 		if (nb_fed == data->nb_philo)
 		{
-			print_action(data, FED, id, ft_get_time(&data->time));
+			print_action(data, FED, id, ft_get_time(&data->time, data));
 			go_on_change(data, TRUE);
 		}
 	}
@@ -132,11 +96,11 @@ void	*check_life(void *da)
 		while (j < data->nb_fork)
 		{
 			data->thrds[j].philo->life_left.time_since = ft_get_time(
-					&data->thrds[j].philo->life_left);
+					&data->thrds[j].philo->life_left, data);
 			if (data->thrds[j].philo->life_left.time_since > data->time_to_die)
 			{
 				go_on_change(data, TRUE);
-				print_action(data, DIED, j, ft_get_time(&data->time));
+				print_action(data, DIED, j, ft_get_time(&data->time, data));
 				return (NULL);
 			}
 			j++;

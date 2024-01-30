@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:42:56 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 12:54:03 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:08:10 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	lock_fork_and_print(t_data *data, int id)
 {
 	pthread_mutex_lock(&data->fork[id]);
-	print_action(data, FORK, id, ft_get_time(&data->time));
+	print_action(data, FORK, id, ft_get_time(&data->time, data));
 }
 
 void	unlock_fork_and_print(t_data *data, int id)
 {
 	pthread_mutex_unlock(&data->fork[id]);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time));
+	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 }
 
 void	handle_last_philosopher(t_data *data, int id, t_bool *both)
 {
 	pthread_mutex_lock(&data->fork[0]);
-	print_action(data, FORK, id, ft_get_time(&data->time));
+	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
 	unlock_fork_and_print(data, 0);
 	*both = TRUE;
@@ -38,7 +38,7 @@ void	handle_last_philosopher(t_data *data, int id, t_bool *both)
 void	handle_other_philosophers(t_data *data, int id, t_bool *both)
 {
 	pthread_mutex_lock(&data->fork[id + 1]);
-	print_action(data, FORK, id, ft_get_time(&data->time));
+	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
 	unlock_fork_and_print(data, id + 1);
 	*both = TRUE;
@@ -60,7 +60,7 @@ void	*routine(void *d)
 	if (data->nb_fork == 1)
 		return (highlander(data, id));
 	odd_wait(id);
-	while (data->thrds[id].philo->go_on == TRUE)
+	while (go_on_change(data, FALSE) == TRUE)
 	{
 		both = FALSE;
 		lock_fork_and_print(data, id);

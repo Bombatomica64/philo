@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 10:29:09 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:14:24 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
-	if (go_on_change(data, FALSE) == FALSE && action != DIED)
+/* 	if (go_on_change(data, FALSE) == FALSE && action != DIED)
+	{
 		return ;
+	} */
 	pthread_mutex_lock(&data->print);
 	prints(action, time_since, id, data);
 	pthread_mutex_unlock(&data->print);
@@ -25,6 +27,8 @@ void	print_action(t_data *data, t_action action, int id, long time_since)
 
 void	prints(t_action action, long time_since, int id, t_data *data)
 {
+	if (go_on_change(data, FALSE) == FALSE && action != DIED)
+		return ;
 	if (action == EAT)
 		printf("\033[1m%ld\033[0;91m philo[%d] is eating\033[0m 🍝️\n",
 			time_since, id);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info_mutex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:54:40 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 15:49:50 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:07:47 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,19 @@ void	handle_action(t_data *data, t_bool action, t_bool *tmp)
 t_bool	go_on_change(t_data *data, t_bool action)
 {
 	t_bool			tmp;
-	//pthread_mutex_t	mutex;
 
-	//pthread_mutex_init(&mutex, NULL);
 	pthread_mutex_lock(&data->mutex);
 	if (data->go_on == FALSE)
 	{
 		pthread_mutex_unlock(&data->mutex);
-		//pthread_mutex_destroy(&mutex);
 		return (FALSE);
 	}
-	else
-		pthread_mutex_unlock(&data->mutex);
-	//pthread_mutex_destroy(&mutex);
+	pthread_mutex_unlock(&data->mutex);
 	handle_action(data, action, &tmp);
 	if (action == TRUE || action == ERROR)
-	{
 		return (FALSE);
-	}
 	else if (action == FALSE)
-	{
 		return (tmp);
-	}
 	return (ERROR);
 }
 
@@ -88,7 +79,7 @@ void	satisfied(t_data *data, int id)
 		}
 		if (i == data->nb_philo)
 		{
-			print_action(data, FED, id, ft_get_time(&data->time));
+			print_action(data, FED, id, ft_get_time(&data->time, data));
 			go_on_change(data, TRUE);
 		}
 	}

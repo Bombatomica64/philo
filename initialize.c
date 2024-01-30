@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 13:04:37 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:09:56 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,14 @@ void	init_data(t_data *data, int ac, char **av)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
-	data->go_on = TRUE;
 	if (ac == 6)
 		data->nb_eat = ft_atoi(av[5]);
 	else
 		data->nb_eat = -4666;
+	data->go_on = TRUE;
 	pthread_mutex_init(&data->go_on_mutex, NULL);
 	pthread_mutex_init(&data->mutex, NULL);
 	data->eating = TRUE;
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->time_mutex, NULL);
 }

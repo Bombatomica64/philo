@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:28:40 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 10:29:04 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:09:16 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	get_start(t_time *start)
 		+ (start->start.tv_usec) / 1000;
 }
 
-long	ft_get_time(t_time *start)
+long	ft_get_time(t_time *start, t_data *data)
 {
 	long			time_since;
 
+	pthread_mutex_lock(&data->time_mutex);
 	time_since = ft_current_time() - start->start_ms;
+	pthread_mutex_unlock(&data->time_mutex);
 	return (time_since);
 }

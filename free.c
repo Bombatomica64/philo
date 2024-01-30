@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:22:58 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/26 15:48:12 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/30 12:54:40 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_all(t_data *data)
+/* void	free_all(t_data *data)
 {
 	int	i;
 
@@ -43,3 +43,4 @@ void	mutex_destroy(t_data *data, int i)
 {
 	pthread_mutex_destroy(&data->thrds[i].philo->fork);
 }
+ */
