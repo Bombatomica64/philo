@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:42:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:09:56 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:38:13 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	init_data(t_data *data, int ac, char **av)
 	data->eating = TRUE;
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->time_mutex, NULL);
+	pthread_mutex_init(&data->check, NULL);
 }

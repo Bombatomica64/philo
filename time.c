@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:28:40 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:09:16 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:44:15 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	ft_msleep(int time)
 		usleep(10);
 }
 
-void	get_start(t_time *start)
+void	get_start(t_time *start, t_data *data)
 {
+	pthread_mutex_lock(&data->time_mutex);
 	gettimeofday(&start->start, NULL);
 	start->start_ms = (start->start.tv_sec) * 1000
 		+ (start->start.tv_usec) / 1000;
+	pthread_mutex_unlock(&data->time_mutex);
 }
 
 long	ft_get_time(t_time *start, t_data *data)

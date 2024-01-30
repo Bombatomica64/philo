@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 12:53:48 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:57:06 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	initialize_philosopher(t_data *data, int i)
 	data->thrds[i].thread = malloc(sizeof(pthread_t));
 	data->thrds[i].philo->id = i;
 	data->thrds[i].philo->left_to_eat = data->nb_eat;
-	get_start(&data->thrds[i].philo->life_left);
+	get_start(&data->thrds[i].philo->life_left, data);
 	data->thrds[i].philo->n_fork = 0;
 	data->thrds[i].philo->start = TRUE;
 	data->thrds[i].philo->go_on = TRUE;
@@ -54,7 +54,7 @@ void	make_threads(t_data *data)
 
 	i = 0;
 	data->thrds = malloc(sizeof(t_thread) * data->nb_philo);
-	get_start(&data->time);
+	get_start(&data->time, data);
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_fork);
 	data->nb_fed = 0;
 	pthread_mutex_init(&data->nb_eaten_mutex, NULL);
