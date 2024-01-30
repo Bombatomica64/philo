@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 17:18:05 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:44:53 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,33 @@ typedef struct s_data_id
 	int					id;
 }	t_data_id;
 
-long	ft_get_time(t_time *st);
-int		ft_atoi(const char *str);
-int		get_fork(t_data *data, pthread_mutex_t *fork, int id);
-int		giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
-t_bool	go_on_change(t_data *data, t_bool action);
-void	satisfied(t_data *data, int id);
-void	init_data(t_data *data, int ac, char **av);
-void	input_check(char **av, int ac, t_data *data);
-void	make_threads(t_data *data);
-void	join_philo(t_data *data);
-void	fork_acquiring(t_data *data, int id);
-void	fork_releasing(t_data *data, int id);
-void	free_all(t_data *data);
-void	free_philo(t_data *data, int i);
-void	mutex_destroy(t_data *data, int i);
-void	print_action(t_data *data, t_action action, int id, long time_since);
-void	prints(t_action action, long time_since, int id, t_data *data);
-void	*check_life(void *da);
-void	ft_msleep(int time);
-void	get_start(t_time *start);
-void	philo_stop(t_data *data);
-void	ft_close(t_data *data);
-void	check_food(t_data *data, int id, int add);
-void	destroy_mutexes(t_data *data, int i, t_bool destroy);
+long		ft_get_time(t_time *st);
+int			ft_atoi(const char *str);
+int			get_fork(t_data *data, pthread_mutex_t *fork, int id);
+int			giveup_fork(pthread_mutex_t *fork, t_data *data, int id);
+t_bool		go_on_change(t_data *data, t_bool action);
+t_data_id	*get_data_id(t_data *data, int id);
+void		satisfied(t_data *data, int id);
+void		init_data(t_data *data, int ac, char **av);
+void		input_check(char **av, int ac, t_data *data);
+void		make_threads(t_data *data);
+void		join_philo(t_data *data);
+void		fork_acquiring(t_data *data, int id);
+void		fork_releasing(t_data *data, int id);
+void		free_all(t_data *data);
+void		free_philo(t_data *data, int i);
+void		mutex_destroy(t_data *data, int i);
+void		print_action(t_data *data, t_action action, int id, long since);
+void		prints(t_action action, long time_since, int id, t_data *data);
+void		*check_life(void *da);
+void		ft_msleep(int time);
+void		get_start(t_time *start);
+void		philo_stop(t_data *data);
+void		ft_close(t_data *data);
+void		check_food(t_data *data, int id, int add);
+void		destroy_mutexes(t_data *data, int i, t_bool destroy);
+void		*routine(void *d);
+void		think_and_die(t_data *data, int id, t_bool both);
+void		create_philosopher_thread(t_data *data, int i);
 
 #endif

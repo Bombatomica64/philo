@@ -6,12 +6,12 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 12:34:48 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/29 17:25:44 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/30 11:06:44 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+/* 
 void	destroy_mutexes(t_data *data, int num, t_bool destroy)
 {
 	int		i;
@@ -43,24 +43,22 @@ void	destroy_mutexes(t_data *data, int num, t_bool destroy)
 			return ;
 		}
 	}
-}
+} */
 
 void	ft_close(t_data *data)
 {
 	int	i;
 
-	ft_msleep(data->time_to_eat + 10);
 	i = 0;
-	destroy_mutexes(data, data->nb_fork, TRUE);
 	while (i < data->nb_fork)
 	{
 		pthread_join(*data->thrds[i].thread, NULL);
-		pthread_mutex_destroy(&data->fork[i]);
 		i++;
 	}
 	i = 0;
 	while (i < data->nb_fork)
 	{
+		pthread_mutex_destroy(&data->fork[i]);
 		free(data->thrds[i].thread);
 		free(data->thrds[i].philo);
 		i++;
