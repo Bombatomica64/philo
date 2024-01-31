@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:18:05 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 17:57:06 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:33:57 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	initialize_philosopher(t_data *data, int i)
 	data->thrds[i].philo->start = TRUE;
 	data->thrds[i].philo->go_on = TRUE;
 	data->thrds[i].philo->overfed = FALSE;
+	pthread_mutex_init(&data->fork_mutex, NULL);
 }
 
 void	create_philosopher_thread(t_data *data, int i)
@@ -31,8 +32,7 @@ void	create_philosopher_thread(t_data *data, int i)
 	t_data_id	*data_id;
 
 	data_id = get_data_id(data, i);
-	pthread_mutex_init(&data->fork[i], NULL);
-	pthread_mutex_lock(&data->fork[i]);
+	//pthread_mutex_lock(&data->fork[i]);
 	pthread_create(data->thrds[i].thread, NULL, &routine, data_id);
 }
 
@@ -60,11 +60,17 @@ void	make_threads(t_data *data)
 	pthread_mutex_init(&data->nb_eaten_mutex, NULL);
 	while (i < data->nb_philo)
 	{
+		pthread_mutex_init(&data->fork[i], NULL);
 		initialize_philosopher(data, i);
+		i++;
+	}
+	//unlock_forks(data);
+	i = 0;
+	while (i < data->nb_philo)
+	{
 		create_philosopher_thread(data, i);
 		i++;
 	}
-	unlock_forks(data);
 	data->thread_alive = malloc(sizeof(pthread_t));
 	pthread_create(data->thread_alive, NULL, &check_life, data);
 	join_philo(data);

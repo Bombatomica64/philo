@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 18:07:31 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:06:14 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_data
 	pthread_mutex_t		mutex;
 	pthread_mutex_t		print;
 	pthread_mutex_t		check;
+	pthread_mutex_t		fork_mutex;
 	t_thread			*thrds;
 	pthread_t			*thread_alive;
 	t_time				time;
@@ -126,6 +127,7 @@ void		*highlander(t_data *data, int id);
 void		satisfied(t_data *data, int id);
 void		free_philo(t_data *data, int i);
 int			get_food(t_data *data, int id);
+void		odd_wait(int id, t_data *data);
 void		make_threads(t_data *dataaaa);
 int			ft_atoi(const char *strrrr);
 size_t		ft_strlen(const char *sss);
@@ -136,6 +138,5 @@ void		ft_close(t_data *data);
 void		*check_life(void *da);
 void		ft_msleep(int time);
 void		*routine(void *d);
-void		odd_wait(int id);
 
 #endif
