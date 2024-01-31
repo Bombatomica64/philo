@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 12:30:03 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/30 16:07:53 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:42:27 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	odd_wait(int id)
 {
 	if (id % 2 != 0)
-		ft_msleep(1);
+		ft_msleep(10);
 }
 
 void	*highlander(t_data *data, int id)
