@@ -32,15 +32,8 @@ void	handle_last_philosopher(t_data *data, int id, t_bool *both)
 	pthread_mutex_lock(&data->fork[0]);
 	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
-	
-	pthread_mutex_unlock(&data->fork[0]);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
-
-	pthread_mutex_unlock(&data->fork[id]);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
-	
-	
-
+	unlock_fork_and_print(data, 0);
+	unlock_fork_and_print(data, id);
 	*both = TRUE;
 	think_and_die(data, id, *both);
 }

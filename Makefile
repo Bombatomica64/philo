@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc -g -Wall -Wextra -Werror
 CC_THREAD = cc -fsanitize=thread -g -Wall -Wextra -Werror
-SRC = checks.c  free.c  ft_atoi.c  initialize.c \
+SRC =  ft_atoi.c  initialize.c \
  		main.c  print.c  threads.c fork.c death.c time.c \
 		info_mutex.c routine.c routine_utils.c ft_strlen.c
 
@@ -17,7 +17,8 @@ $(NAME): $(OBJ)
 %.o: %.c
 	@$(CC) -c $< -o $@
 
-bonus : all
+bonus : 
+	@make all -C bonus
 
 all_thread: $(OBJ)
 	@$(CC_THREAD)  $(OBJ) -o $(NAME) -lpthread
@@ -25,20 +26,20 @@ all_thread: $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
+	@make clean -C bonus
 	@echo "Cleaned objects successfully!"
-	
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -C bonus
 	@echo "Cleaned "$(NAME)" successfully!"
 	
 re: fclean all
+	@make re -C bonus
 
 replay:
 	@rm -f $(NAME)
 	@$(CC) $(SRC) -o $(NAME)
 	@echo "Let's  gooo!!"
-
-bonus : all
 
 val: re
 	@read -p "Enter number of philo: " cmd; \

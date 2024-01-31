@@ -16,7 +16,7 @@ void	odd_wait(int id, t_data *data)
 {
 	(void)data;
 	if (id % 2 != 0)
-		ft_msleep(data->time_to_eat - 5);
+		ft_msleep(10);
 }
 
 void	*highlander(t_data *data, int id)
