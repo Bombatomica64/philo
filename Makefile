@@ -26,19 +26,20 @@ all_thread: $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
+	@make clean -C bonus
 	@echo "Cleaned objects successfully!"
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -C bonus
 	@echo "Cleaned "$(NAME)" successfully!"
 	
 re: fclean all
+	@make re -C bonus
 
 replay:
 	@rm -f $(NAME)
 	@$(CC) $(SRC) -o $(NAME)
 	@echo "Let's  gooo!!"
-
-bonus : all
 
 val: re
 	@read -p "Enter number of philo: " cmd; \

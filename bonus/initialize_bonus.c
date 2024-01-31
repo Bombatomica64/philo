@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:30 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/31 11:20:55 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:34:58 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_check_for_non_int_bonus(char *str)
 	return (i);
 }
 
-void	input_check_bonus(char **av, int ac, t_data *data)
+void	input_check_bonus(char **av, int ac, t_data_bonus *data)
 {
 	if (ft_check_for_non_int_bonus(av[1]) == 0)
 		write(2, "\033[36mError : philosophers must be an integer\n", 45);
@@ -75,12 +75,15 @@ void	input_check_bonus(char **av, int ac, t_data *data)
 void	init_data_bonus(t_data_bonus *data, int ac, char **av)
 {
 	input_check_bonus(av, ac, data);
-	data->nb_philo = atoi(av[1]);
-	data->time_to_die = ft_atoi(av[2]);
-	data->time_to_eat = ft_atoi(av[3]);
-	data->time_to_sleep = ft_atoi(av[4]);
+	data = malloc(sizeof(t_data_bonus));
+	data->nb_philo = ft_atoi_bonus(av[1]);
+	data->time_to_die = ft_atoi_bonus(av[2]);
+	data->time_to_eat = ft_atoi_bonus(av[3]);
+	data->time_to_sleep = ft_atoi_bonus(av[4]);
 	if (ac == 6)
-		data->nb_meals = ft_atoi(av[5]);
+		data->nb_meals = ft_atoi_bonus(av[5]);
 	else
 		data->nb_meals = -4666;
+	data->philo = malloc(sizeof(t_philo_bonus) * data->nb_philo);
+	get_start_bonus(&data->time);
 }

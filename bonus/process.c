@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 11:10:10 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/31 17:31:03 by lmicheli         ###   ########.fr       */
+/*   Created: 2024/01/31 12:12:25 by lmicheli          #+#    #+#             */
+/*   Updated: 2024/01/31 15:35:16 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	main(int ac, char **av)
+void	make_processes(t_data_bonus *data)
 {
-	t_data_bonus	*data;
+	int	i;
 
-	if (ac < 5)
-		write(2, "\033[36mError : not enough arguments\n", 33);
-	else if (ac < 7)
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		data = malloc(sizeof(t_data_bonus));
-		init_data_bonus(data, ac, av);
-		make_semaphores(data);
-		make_processes(data);
+		data->philo[i].pid = fork();
+		if (data->philo[i].pid == 0)
+			philo_life(data, i);
+		i++;
 	}
-	else
-		write(2, "\033[36mError : too many arguments\n", 31);
-	return (0);
 }
