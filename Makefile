@@ -5,6 +5,7 @@ CC_THREAD = cc -fsanitize=thread -g -Wall -Wextra -Werror
 SRC =  ft_atoi.c  initialize.c \
  		main.c  print.c  threads.c fork.c death.c time.c \
 		info_mutex.c routine.c routine_utils.c ft_strlen.c
+		
 
 OBJ = $(SRC:.c=.o)
 
