@@ -18,7 +18,7 @@ $(NAME): $(OBJ)
 	@$(CC) -c $< -o $@
 
 bonus : 
-	@make all -C bonus
+	@make all -C ../philo_bonus
 
 all_thread: $(OBJ)
 	@$(CC_THREAD)  $(OBJ) -o $(NAME) -lpthread
@@ -26,15 +26,15 @@ all_thread: $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
-	@make clean -C bonus
+	@make clean -C ../philo_bonus
 	@echo "Cleaned objects successfully!"
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C bonus
+	@make fclean -C ../philo_bonus
 	@echo "Cleaned "$(NAME)" successfully!"
 	
 re: fclean all
-	@make re -C bonus
+	@make re -C ../philo_bonus
 
 replay:
 	@rm -f $(NAME)
