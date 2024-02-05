@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/31 16:06:14 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:06:09 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef enum e_bool
 typedef struct s_time
 {
 	struct timeval		start;
-	long				start_ms;
-	long				time_since;
+	long long			start_ms;
+	long long			time_since;
 }	t_time;
 
 typedef struct s_philo
