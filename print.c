@@ -6,7 +6,7 @@
 /*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/31 18:37:43 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:14:39 by mruggier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	print_action(t_data *data, t_action action, int id, long time_since)
 {
 	if (go_on_change(data, FALSE) == FALSE && action != DIED)
-	{
 		return ;
-	}
 	pthread_mutex_lock(&data->print);
 	prints(action, time_since, id, data);
 	pthread_mutex_unlock(&data->print);
