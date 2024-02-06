@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/02/05 11:06:09 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:27:23 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_philo
 	t_bool				start; // TRUE if philo has just started.
 	t_bool				go_on;	// TRUE if program should continue.
 	t_bool				overfed; // TRUE if philo is full.
+	t_bool				fork_av; // TRUE if fork is available.
 	pthread_mutex_t		fork; // Philo's fork.
 }	t_philo;
 

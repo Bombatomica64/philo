@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:42:56 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/01/31 18:34:16 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:28:05 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	lock_fork_and_print(t_data *data, int id)
 {
 	pthread_mutex_lock(&data->fork[id]);
+	data->thrds[id].philo->fork_av = FALSE;
 	print_action(data, FORK, id, ft_get_time(&data->time, data));
 }
 
 void	unlock_fork_and_print(t_data *data, int id)
 {
 	pthread_mutex_unlock(&data->fork[id]);
+	data->thrds[id].philo->fork_av = TRUE;
 	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 }
 
