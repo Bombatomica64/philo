@@ -29,6 +29,7 @@ clean:
 	@rm -f $(OBJ)
 	@make clean -C ../philo_bonus
 	@echo "Cleaned objects successfully!"
+
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C ../philo_bonus
