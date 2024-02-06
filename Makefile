@@ -43,21 +43,4 @@ replay:
 	@$(CC) $(SRC) -o $(NAME)
 	@echo "Let's  gooo!!"
 
-val: re
-	@read -p "Enter number of philo: " cmd; \
-	read -p "Enter time to die: " cmd2; \
-	read -p "Enter time to eat: " cmd3; \
-	read -p "Enter time to sleep: " cmd4; \
-	read -p "Enter number of times each philo must eat: " cmd5; \
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
-	./$(NAME) $$cmd $$cmd2 $$cmd3 $$cmd4 $$cmd5
-
-vall: re
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes \
-	./$(NAME) 3 800 200 200
-
-hell: re
-	valgrind  --tool=helgrind --history-level=approx \
-	./$(NAME) 1 800 200 200 1
-
 .PHONY: all clean fclean bonus re replay
