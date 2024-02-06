@@ -58,6 +58,6 @@ vall: re
 
 hell: re
 	valgrind  --tool=helgrind --history-level=approx \
-	./$(NAME) 4 8000 200 200 1
+	./$(NAME) 1 800 200 200 1
 
 .PHONY: all clean fclean bonus re replay

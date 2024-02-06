@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:47:59 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/02/02 18:14:39 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:42:23 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	prints(t_action action, long time_since, int id, t_data *data)
 			time_since, id +1);
 	else if (action == FORK)
 		printf("\033[1m%ld \033[0;93mphilo[%d] has taken a fork\033[0m 🍴️\n",
-			time_since, id +1);
-	else if (action == FORK_LEFT)
-		printf("\033[1m%ld\033[0;35m philo[%d] has left a fork\033[0m\n",
 			time_since, id +1);
 	else if (action == FED)
 		printf("\033[32m%ld Each philo ate %i times and it's full\033[0m ⭐️\n",

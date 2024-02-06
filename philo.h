@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:45:15 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/02/06 12:27:23 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:41:24 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef enum e_action
 	SLEEP,
 	THINK,
 	FORK,
-	FORK_LEFT,
 	DIED,
 	FED
 }	t_action;

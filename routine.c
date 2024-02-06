@@ -6,7 +6,7 @@
 /*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 11:42:56 by lmicheli          #+#    #+#             */
-/*   Updated: 2024/02/06 12:28:05 by lmicheli         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:42:00 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	unlock_fork_and_print(t_data *data, int id)
 {
 	pthread_mutex_unlock(&data->fork[id]);
 	data->thrds[id].philo->fork_av = TRUE;
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 }
 
 void	handle_last_philosopher(t_data *data, int id, t_bool *both)
@@ -59,9 +58,7 @@ void	handle_philosophers(t_data *data, int id, t_bool *both)
 	print_action(data, FORK, id, ft_get_time(&data->time, data));
 	get_food(data, id);
 	pthread_mutex_unlock(&data->fork[second_fork]);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 	pthread_mutex_unlock(&data->fork[first_fork]);
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 	*both = TRUE;
 	think_and_die(data, id, *both);
 }

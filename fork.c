@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mruggier <mruggier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmicheli <lmicheli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:18:01 by mruggier          #+#    #+#             */
-/*   Updated: 2024/01/30 17:41:25 by mruggier         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:42:31 by lmicheli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	get_food(t_data *data, int id)
 
 void	think_and_die(t_data *data, int id, t_bool both)
 {
-	print_action(data, FORK_LEFT, id, ft_get_time(&data->time, data));
 	if (both == TRUE)
 	{
 		print_action(data, SLEEP, id, ft_get_time(&data->time, data));
